@@ -10,7 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "MAPS_KEY", MAPS_KEY)
+        resValue("string", "MAPS_KEY", MAPS_KEY)
     }
     buildTypes {
         release {
@@ -29,12 +29,13 @@ ext {
     constraintLayoutVersion = '1.1.2'
     // daggerVersion = '2.15'
     butterKnifeVersion = '8.8.1'
-   // rxJavaVersion = '2.1.16'
-   // rxAndroidVersion = '2.0.2'
+    // rxJavaVersion = '2.1.16'
+    // rxAndroidVersion = '2.0.2'
     timberVersion = '4.7.1'
     lifecycleVersion = '1.1.1'
     //roomVersion = '1.1.1'
     playServicesVersion = '15.0.1'
+    autoValueVersion = '1.6.2'
 
     picassoVersion = '2.5.2'
 }
@@ -85,7 +86,7 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:$lifecycleVersion"
 
     // Room
-   // implementation "android.arch.persistence.room:runtime:$roomVersion"
+    // implementation "android.arch.persistence.room:runtime:$roomVersion"
     //annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
 
     // Maps
@@ -93,4 +94,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:$playServicesVersion"
     implementation "com.google.android.gms:play-services-maps:$playServicesVersion"
     implementation "com.google.android.gms:play-services-places:$playServicesVersion"
+
+    implementation "com.google.auto.value:auto-value-annotations:$autoValueVersion"
+    annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
 }

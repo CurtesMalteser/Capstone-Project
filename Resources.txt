@@ -1,0 +1,7 @@
+***** AutoValue *****
+
+https://github.com/google/auto/blob/master/value/userguide/index.md
+
+https://medium.com/rocknnull/no-more-value-classes-boilerplate-the-power-of-autovalue-bbaf36cf8bbe
+
+http://www.vogella.com/tutorials/AutoValue/article.html
