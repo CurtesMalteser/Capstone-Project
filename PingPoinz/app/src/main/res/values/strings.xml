@@ -47,4 +47,12 @@
     <string name="default_info_snippet">Marker Default Snippet</string>
 
 
+    <string name="free">Free</string>
+    <string name="inexpensive">Inexpensive</string>
+    <string name="moderate">Moderate</string>
+    <string name="expensive">Expensive</string>
+    <string name="very_expensive">Very Expensive</string>
+    <string name="n_a">N/A</string>
+
+
 </resources>

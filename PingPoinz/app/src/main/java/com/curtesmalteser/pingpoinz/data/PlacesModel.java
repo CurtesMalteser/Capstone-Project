@@ -19,6 +19,8 @@ public abstract class PlacesModel {
     public abstract static class Builder {
         public abstract Builder setPlaceName(String placeName);
         public abstract Builder setPlaceAddress(String placeAddress);
+        public abstract Builder setPlacePriceLevel(String placePriceLevel);
+        public abstract Builder setPlaceRating(Float placeRating);
         public abstract Builder setPlaceAttributions(String placeAttributions);
         public abstract Builder setPlaceLatLng(LatLng placeLatLng);
         public abstract Builder setPlaceType(List<Integer> placeType);
@@ -28,6 +30,10 @@ public abstract class PlacesModel {
     public abstract String placeName();
 
     public abstract String placeAddress();
+
+    public abstract String placePriceLevel();
+
+    public abstract Float placeRating();
 
     public abstract String placeAttributions();
 

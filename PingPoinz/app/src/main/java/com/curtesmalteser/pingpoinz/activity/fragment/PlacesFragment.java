@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzPlacesAdapter;
 import com.curtesmalteser.pingpoinz.data.PlacesModel;
+import com.curtesmalteser.pingpoinz.data.PriceLevel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.PlaceDetectionClient;
@@ -220,11 +221,16 @@ public class PlacesFragment extends Fragment
 
                             for (PlaceLikelihood placeLikelihood : likelyPlaces) {
 
+                                int string = PriceLevel.getPriceLevel(placeLikelihood.getPlace().getPriceLevel());
+                                String stringPriceLevel = getString(string);
+
                                 String attributions = placeLikelihood.getPlace().getAttributions() != null ? placeLikelihood.getPlace().getAttributions().toString() : "Attributions Not Available";
 
                                 PlacesModel placesModel = PlacesModel.builder().
                                         setPlaceName(placeLikelihood.getPlace().getName().toString())
                                         .setPlaceAddress(placeLikelihood.getPlace().getAddress().toString())
+                                        .setPlacePriceLevel(stringPriceLevel)
+                                        .setPlaceRating(placeLikelihood.getPlace().getRating())
                                         .setPlaceAttributions(attributions)
                                         .setPlaceLatLng(placeLikelihood.getPlace().getLatLng())
                                         .setPlaceType(placeLikelihood.getPlace().getPlaceTypes())
@@ -233,7 +239,7 @@ public class PlacesFragment extends Fragment
                                 mPlacesArrayList.add(placesModel);
                                 mPoinzPlacesAdapter.notifyDataSetChanged();
 
-                                Log.d(TAG, " - > onComplete: " + mPlacesArrayList.size() + " " + placesModel.placeName());
+                                Log.d(TAG, " - > onComplete:  " + placesModel.placeName() + "price level API " + placeLikelihood.getPlace().getPriceLevel() + " price level " + placesModel.placePriceLevel());
 
                             }
 
@@ -258,7 +264,7 @@ public class PlacesFragment extends Fragment
 
     @Override
     public void onListItemClick(PlacesModel moviesModel) {
-        Toast.makeText(getActivity(), "Test click", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), moviesModel.placeName(), Toast.LENGTH_SHORT).show();
     }
 }
 
