@@ -9,13 +9,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.curtesmalteser.pingpoinz.R;
+import com.curtesmalteser.pingpoinz.activity.adapter.PoinzPlacesAdapter;
 import com.curtesmalteser.pingpoinz.data.PlacesModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -23,18 +26,19 @@ import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlacesFragment extends Fragment {
+public class PlacesFragment extends Fragment
+        implements PoinzPlacesAdapter.ListItemClickListener {
 
     private static final String TAG = PlacesFragment.class.getSimpleName();
 
@@ -57,16 +61,14 @@ public class PlacesFragment extends Fragment {
 
     // Used for selecting the current place.
     private static final int M_MAX_ENTRIES = 40;
-    private String[] mLikelyPlaceNames;
-    private String[] mLikelyPlaceAddresses;
-    private String[] mLikelyPlaceAttributions;
-    private LatLng[] mLikelyPlaceLatLngs;
+
+    ArrayList<PlacesModel> mPlacesArrayList = new ArrayList<>();
 
 
-    ArrayList<PlacesModel> myPlacesArrayList = new ArrayList<>();
+    private PoinzPlacesAdapter mPoinzPlacesAdapter;
 
-    @BindView(R.id.btnShowCurrentPlace)
-    AppCompatButton btnShowCurrentPlace;
+    @BindView(R.id.rvPoinzPlaces)
+    RecyclerView mRvPoinzPlaces;
 
 
     public PlacesFragment() {
@@ -95,7 +97,16 @@ public class PlacesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_places, container, false);
+        View v = inflater.inflate(R.layout.fragment_places, container, false);
+        ButterKnife.bind(this, v);
+
+        // TODO: 22/07/2018 Is Context needed?
+        mPoinzPlacesAdapter = new PoinzPlacesAdapter(getContext(), mPlacesArrayList, this);
+        mRvPoinzPlaces.setAdapter(mPoinzPlacesAdapter);
+        mRvPoinzPlaces.setHasFixedSize(true);
+        mRvPoinzPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        return v;
     }
 
     @Override
@@ -219,9 +230,10 @@ public class PlacesFragment extends Fragment {
                                         .setPlaceType(placeLikelihood.getPlace().getPlaceTypes())
                                         .build();
 
-                                myPlacesArrayList.add(placesModel);
+                                mPlacesArrayList.add(placesModel);
+                                mPoinzPlacesAdapter.notifyDataSetChanged();
 
-                                Log.d("AJDB", " - > onComplete: " + myPlacesArrayList.size() + " " + placesModel.placeName());
+                                Log.d(TAG, " - > onComplete: " + mPlacesArrayList.size() + " " + placesModel.placeName());
 
                             }
 
@@ -244,5 +256,9 @@ public class PlacesFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onListItemClick(PlacesModel moviesModel) {
+        Toast.makeText(getActivity(), "Test click", Toast.LENGTH_SHORT).show();
+    }
 }
 

@@ -13,7 +13,6 @@ public abstract class PlacesModel {
 
     public static Builder builder() {
         return new AutoValue_PlacesModel.Builder();
-
     }
 
     @AutoValue.Builder
@@ -25,8 +24,6 @@ public abstract class PlacesModel {
         public abstract Builder setPlaceType(List<Integer> placeType);
         public abstract PlacesModel build();
     }
-
-
 
     public abstract String placeName();
 
