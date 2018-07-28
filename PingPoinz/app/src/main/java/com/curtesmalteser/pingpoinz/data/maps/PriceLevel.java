@@ -1,4 +1,4 @@
-package com.curtesmalteser.pingpoinz.data;
+package com.curtesmalteser.pingpoinz.data.maps;
 
 import android.support.annotation.StringRes;
 

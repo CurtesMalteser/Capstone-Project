@@ -11,6 +11,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         resValue("string", "MAPS_KEY", MAPS_KEY)
+        resValue("string", "EVENTFUL_KEY", EVENTFUL_KEY)
     }
     buildTypes {
         release {
@@ -39,7 +40,10 @@ ext {
     playServicesVersion = '15.0.1'
     autoValueVersion = '1.6.2'
 
-    picassoVersion = '2.5.2'
+    retrofitVersion = '2.4.0'
+    gsonVersion = '2.8.5'
+    okhttpVersion = '3.11.0'
+    picassoVersion = '2.71828'
 }
 
 dependencies {
@@ -96,6 +100,13 @@ dependencies {
 
     implementation "com.google.auto.value:auto-value-annotations:$autoValueVersion"
     annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'
