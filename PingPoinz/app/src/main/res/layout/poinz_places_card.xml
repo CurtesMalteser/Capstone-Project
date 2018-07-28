@@ -6,34 +6,58 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_for_testing">
 
+    <ImageView
+        android:id="@+id/ivCardPlacePhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/ic_map_white_24dp"/>
+
+
     <TextView
         android:id="@+id/tvPointName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvPointAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivCardPlacePhoto"
+        app:layout_constraintTop_toTopOf="@+id/ivCardPlacePhoto"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Schloss Leuk" />
 
     <TextView
         android:id="@+id/tvPointAddress"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCardPlacePhoto"
+        app:layout_constraintEnd_toEndOf="@+id/tvPointName"
+        app:layout_constraintStart_toStartOf="@+id/tvPointName"
         app:layout_constraintTop_toBottomOf="@+id/tvPointName"
         tools:text="Rathauspl. 5, 3953 Leuk" />
+
+    <TextView
+        android:id="@+id/tvAttributions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvPointName"
+        app:layout_constraintStart_toStartOf="@+id/tvPointName"
+        tools:text="Attributions" />
 
 </android.support.constraint.ConstraintLayout>

@@ -2,8 +2,11 @@ package com.curtesmalteser.pingpoinz.activity.fragment;
 
 
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -11,25 +14,37 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzPlacesAdapter;
+import com.curtesmalteser.pingpoinz.data.ComposedPlacesModel;
 import com.curtesmalteser.pingpoinz.data.PlacesModel;
+import com.curtesmalteser.pingpoinz.data.PlacesPhotosModel;
 import com.curtesmalteser.pingpoinz.data.PriceLevel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
+import com.google.android.gms.location.places.PlacePhotoMetadata;
+import com.google.android.gms.location.places.PlacePhotoMetadataBuffer;
+import com.google.android.gms.location.places.PlacePhotoMetadataResponse;
+import com.google.android.gms.location.places.PlacePhotoResponse;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +61,8 @@ public class PlacesFragment extends Fragment
 
     // The entry points to the Places API.
     private PlaceDetectionClient mPlaceDetectionClient;
+
+    private GeoDataClient mGeoDataClient;
 
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -68,9 +85,10 @@ public class PlacesFragment extends Fragment
 
     private PoinzPlacesAdapter mPoinzPlacesAdapter;
 
+    private PlacesModel placesModel;
+
     @BindView(R.id.rvPoinzPlaces)
     RecyclerView mRvPoinzPlaces;
-
 
     public PlacesFragment() {
         // Required empty public constructor
@@ -86,6 +104,9 @@ public class PlacesFragment extends Fragment
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        this.mGeoDataClient = Places.getGeoDataClient(getActivity());
+
 
         // Prompt the user for permission.
         getLocationPermission();
@@ -199,6 +220,8 @@ public class PlacesFragment extends Fragment
     private void showCurrentPlace() {
 
         if (mLocationPermissionGranted) {
+
+
             // Get the likely places - that is, the businesses and other points of interest that
             // are the best match for the device's current location.
             @SuppressWarnings("MissingPermission") final Task<PlaceLikelihoodBufferResponse> placeResult =
@@ -212,8 +235,8 @@ public class PlacesFragment extends Fragment
 
                             // TODO: 22/07/2018 check if number of places should be limited
                             // TODO: 22/07/2018 based of User Preferences?
-                            /*int count;
-                            if (likelyPlaces.getCount() < M_MAX_ENTRIES) {
+                            //int count;
+                           /* if (likelyPlaces.getCount() < M_MAX_ENTRIES) {
                                 count = likelyPlaces.getCount();
                             } else {
                                 count = M_MAX_ENTRIES;
@@ -221,30 +244,39 @@ public class PlacesFragment extends Fragment
 
                             for (PlaceLikelihood placeLikelihood : likelyPlaces) {
 
-                                int string = PriceLevel.getPriceLevel(placeLikelihood.getPlace().getPriceLevel());
-                                String stringPriceLevel = getString(string);
+                                final Task<PlacePhotoMetadataResponse> photoMetadataResponse = mGeoDataClient.getPlacePhotos(placeLikelihood.getPlace().getId());
+                                photoMetadataResponse.addOnCompleteListener(task1 -> {
 
-                                String attributions = placeLikelihood.getPlace().getAttributions() != null ? placeLikelihood.getPlace().getAttributions().toString() : "Attributions Not Available";
+                                    int string = PriceLevel.getPriceLevel(placeLikelihood.getPlace().getPriceLevel());
+                                    String stringPriceLevel = getString(string);
 
-                                PlacesModel placesModel = PlacesModel.builder().
-                                        setPlaceName(placeLikelihood.getPlace().getName().toString())
-                                        .setPlaceAddress(placeLikelihood.getPlace().getAddress().toString())
-                                        .setPlacePriceLevel(stringPriceLevel)
-                                        .setPlaceRating(placeLikelihood.getPlace().getRating())
-                                        .setPlaceAttributions(attributions)
-                                        .setPlaceLatLng(placeLikelihood.getPlace().getLatLng())
-                                        .setPlaceType(placeLikelihood.getPlace().getPlaceTypes())
-                                        .build();
+                                    String attributions = placeLikelihood.getPlace().getAttributions() != null ? placeLikelihood.getPlace().getAttributions().toString() : "Attributions Not Available";
 
-                                mPlacesArrayList.add(placesModel);
-                                mPoinzPlacesAdapter.notifyDataSetChanged();
+                                    placesModel = PlacesModel.builder()
+                                            .setPlaceId(placeLikelihood.getPlace().getId())
+                                            .setPlaceName(placeLikelihood.getPlace().getName().toString())
+                                            .setPlaceAddress(placeLikelihood.getPlace().getAddress().toString())
+                                            .setPlacePriceLevel(stringPriceLevel)
+                                            .setPlaceRating(placeLikelihood.getPlace().getRating())
+                                            .setPlaceAttributions(attributions)
+                                            .setPlaceLatLng(placeLikelihood.getPlace().getLatLng())
+                                            .setPlaceType(placeLikelihood.getPlace().getPlaceTypes())
+                                            .build();
 
-                                Log.d(TAG, " - > onComplete:  " + placesModel.placeName() + "price level API " + placeLikelihood.getPlace().getPriceLevel() + " price level " + placesModel.placePriceLevel());
+                                    Log.d(TAG, " - > onComplete:  " + placesModel.placeName() + " place id " + placeLikelihood.getPlace().getId());
+
+                                    mPlacesArrayList.add(placesModel);
+                                    mPoinzPlacesAdapter.notifyDataSetChanged();
+
+
+                                    // photoMetadataBuffer.release();
+                                });
+
 
                             }
 
                             // Release the place likelihood buffer, to avoid memory leaks.
-                            likelyPlaces.release();
+                            //likelyPlaces.release();
 
                         } else {
                             Timber.e(task.getException().getMessage(), "Exception: %s");
@@ -258,11 +290,11 @@ public class PlacesFragment extends Fragment
             // The user has not granted permission.
             Timber.i("The user did not grant location permission.");
 
-
         }
     }
 
     @Override
+    //public void onListItemClick(ComposedPlacesModel moviesModel) {
     public void onListItemClick(PlacesModel moviesModel) {
         Toast.makeText(getActivity(), moviesModel.placeName(), Toast.LENGTH_SHORT).show();
     }

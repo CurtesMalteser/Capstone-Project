@@ -22,8 +22,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import timber.log.Timber;
-
 /**
  * Created by António "Curtes Malteser" Bastião on 20/07/2018.
  */
@@ -60,8 +58,6 @@ public class LocationUpdatesManager {
 
     // ***** Get the last known location *****
     public void setFusedLocationClient() {
-
-        Timber.d("AJDB -> What?");
 
         if (checkPermission()) {
             mFusedLocationClient.getLastLocation()

@@ -8,13 +8,13 @@ import com.google.auto.value.AutoValue;
 import java.util.List;
 
 /**
- * Created by António "Curtes Malteser" Bastião on 22/07/2018.
+ * Created by António "Curtes Malteser" Bastião on 25/07/2018.
  */
 @AutoValue
-public abstract class PlacesModel {
+public abstract class ComposedPlacesModel {
 
     public static Builder builder() {
-        return new AutoValue_PlacesModel.Builder();
+        return new AutoValue_ComposedPlacesModel.Builder();
     }
 
     @AutoValue.Builder
@@ -27,7 +27,9 @@ public abstract class PlacesModel {
         public abstract Builder setPlaceAttributions(String placeAttributions);
         public abstract Builder setPlaceLatLng(LatLng placeLatLng);
         public abstract Builder setPlaceType(List<Integer> placeType);
-        public abstract PlacesModel build();
+        public abstract Builder setPlacePhoto(Bitmap placePhoto);
+        public abstract Builder setPlacePhotoAttributions(String PhotoAttributions);
+        public abstract ComposedPlacesModel build();
     }
 
     public abstract String placeId();
@@ -46,4 +48,7 @@ public abstract class PlacesModel {
 
     public abstract List<Integer> placeType();
 
+    public abstract Bitmap placePhoto();
+
+    public abstract String placePhotoAttributions();
 }
