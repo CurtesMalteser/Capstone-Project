@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.curtesmalteser.pingpoinz.R;
-import com.curtesmalteser.pingpoinz.activity.adapter.PoinzPlacesAdapter;
+import com.curtesmalteser.pingpoinz.activity.adapter.PlacesAdapter;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
 import com.curtesmalteser.pingpoinz.data.maps.PriceLevel;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,7 +41,7 @@ import timber.log.Timber;
  * A simple {@link Fragment} subclass.
  */
 public class PlacesFragment extends Fragment
-        implements PoinzPlacesAdapter.ListItemClickListener {
+        implements PlacesAdapter.ListItemClickListener {
 
     private static final String TAG = PlacesFragment.class.getSimpleName();
 
@@ -70,11 +70,11 @@ public class PlacesFragment extends Fragment
     ArrayList<PlacesModel> mPlacesArrayList = new ArrayList<>();
 
 
-    private PoinzPlacesAdapter mPoinzPlacesAdapter;
+    private PlacesAdapter mPoinzPlacesAdapter;
 
     private PlacesModel placesModel;
 
-    @BindView(R.id.rvPoinzPlaces)
+    @BindView(R.id.rvPlacesPlaces)
     RecyclerView mRvPoinzPlaces;
 
     public PlacesFragment() {
@@ -110,7 +110,7 @@ public class PlacesFragment extends Fragment
         ButterKnife.bind(this, v);
 
         // TODO: 22/07/2018 Is Context needed?
-        mPoinzPlacesAdapter = new PoinzPlacesAdapter(getContext(), mPlacesArrayList, this);
+        mPoinzPlacesAdapter = new PlacesAdapter(getContext(), mPlacesArrayList, this);
         mRvPoinzPlaces.setAdapter(mPoinzPlacesAdapter);
         mRvPoinzPlaces.setHasFixedSize(true);
         mRvPoinzPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -146,8 +146,6 @@ public class PlacesFragment extends Fragment
                     } else {
                         Timber.d("Current location is null. Using defaults.");
                         Timber.e(task.getException().toString(), "Exception: %s");
-
-
                     }
                 });
             } else {
@@ -249,9 +247,6 @@ public class PlacesFragment extends Fragment
                                             .setPlaceLatLng(placeLikelihood.getPlace().getLatLng())
                                             .setPlaceType(placeLikelihood.getPlace().getPlaceTypes())
                                             .build();
-
-                                    Log.d(TAG, " - > onComplete:  " + placesModel.placeName() + " place id " + placeLikelihood.getPlace().getId());
-
                                     mPlacesArrayList.add(placesModel);
                                     mPoinzPlacesAdapter.notifyDataSetChanged();
 

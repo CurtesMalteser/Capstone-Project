@@ -29,7 +29,8 @@ import butterknife.ButterKnife;
 /**
  * Created by António "Curtes Malteser" Bastião on 22/07/2018.
  */
-public class PoinzPlacesAdapter extends RecyclerView.Adapter<PoinzPlacesAdapter.PoinzPlacesViewHolder> {
+public class PlacesAdapter
+        extends RecyclerView.Adapter<PlacesAdapter.PoinzPlacesViewHolder> {
 
     // TODO: 22/07/2018 Is Context needed?
     private Context mContext;
@@ -45,8 +46,8 @@ public class PoinzPlacesAdapter extends RecyclerView.Adapter<PoinzPlacesAdapter.
     }
 
     //public PoinzPlacesAdapter(Context context, ArrayList<ComposedPlacesModel> moviesModelArrayList,
-    public PoinzPlacesAdapter(Context context, ArrayList<PlacesModel> moviesModelArrayList,
-                              ListItemClickListener listener) {
+    public PlacesAdapter(Context context, ArrayList<PlacesModel> moviesModelArrayList,
+                         ListItemClickListener listener) {
         this.mContext = context;
         this.mPlacesList = moviesModelArrayList;
         this.mOnClickListener = listener;

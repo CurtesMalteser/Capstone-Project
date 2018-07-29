@@ -5,21 +5,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.curtesmalteser.pingpoinz.R;
-import com.curtesmalteser.pingpoinz.activity.adapter.PoinzPlacesAdapter;
+import com.curtesmalteser.pingpoinz.activity.adapter.PoinzAdapter;
 import com.curtesmalteser.pingpoinz.data.api.Event;
 import com.curtesmalteser.pingpoinz.data.api.EventfulApiClient;
 import com.curtesmalteser.pingpoinz.data.api.EventfulApiInterface;
 import com.curtesmalteser.pingpoinz.data.api.EventfulEventsModel;
+import com.curtesmalteser.pingpoinz.data.api.Events;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,19 @@ import timber.log.Timber;
 /**
  * Created by António "Curtes Malteser" Bastião on 22/07/2018.
  */
-public class PoinzFragment extends Fragment {
+public class PoinzFragment extends Fragment
+        implements PoinzAdapter.ListItemClickListener {
+
+    private PoinzAdapter mPoinzAdapter;
+
+    private ArrayList<Event> eventsModel = new ArrayList<>();
+
+    @BindView(R.id.rvPoinzPlaces)
+    RecyclerView mRvPoinzPlaces;
+
+    public PoinzFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +62,11 @@ public class PoinzFragment extends Fragment {
 
         ButterKnife.bind(this, v);
 
+        // TODO: 22/07/2018 Is Context needed?
+        mPoinzAdapter = new PoinzAdapter(getContext(), eventsModel, this);
+        mRvPoinzPlaces.setAdapter(mPoinzAdapter);
+        mRvPoinzPlaces.setHasFixedSize(true);
+        mRvPoinzPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         makeMoviesQuery(0);
 
 
@@ -59,6 +76,7 @@ public class PoinzFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
     }
 
@@ -78,42 +96,43 @@ public class PoinzFragment extends Fragment {
         EventfulApiInterface apiInterface = EventfulApiClient.getClient().create(EventfulApiInterface.class);
         Call<EventfulEventsModel> call;
 
+        // TODO: 29/07/2018 -> check for connectivity
        /* if (cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().isAvailable()
                 && cm.getActiveNetworkInfo().isConnected()) {*/
 
-            Map<String, String> queryParams = new HashMap<>();
-            queryParams.put("date", "Future");
-            queryParams.put("location", "Valais");
-            queryParams.put("app_key", getResources().getString(R.string.EVENTFUL_KEY));
-            queryParams.put("page_number", "1");
-            queryParams.put("page_size", "250");
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("date", "Future");
+        queryParams.put("location", "Valais");
+        queryParams.put("app_key", getResources().getString(R.string.EVENTFUL_KEY));
+        queryParams.put("page_number", "1");
+        queryParams.put("page_size", "250");
 
-            call = apiInterface.getEventfulEvents(queryParams);
-            call.enqueue(new Callback<EventfulEventsModel>() {
-                @Override
-                public void onResponse(@NonNull Call<EventfulEventsModel> call, @NonNull Response<EventfulEventsModel> response) {
+        call = apiInterface.getEventfulEvents(queryParams);
+        call.enqueue(new Callback<EventfulEventsModel>() {
+            @Override
+            public void onResponse(@NonNull Call<EventfulEventsModel> call, @NonNull Response<EventfulEventsModel> response) {
+                eventsModel.addAll(response.body().events().eventsList());
+                mPoinzAdapter.notifyDataSetChanged();
 
-                    for (Event event : response.body().events().event()) {
+               for(Event event : response.body().events().eventsList()) {
+                   if (event.image() != null)
+                       Timber.d("foo this -> " + event.image().url() + event.title());
+               }
+            }
 
-
-                        Timber.d("foo -> " +  event.venueName() + " auto value working" );
-
-                        if (event.image() != null) {
-                            Timber.d("fooPic -> " +  event.image().url() );
-                        }
-
-                    }
-
-
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<EventfulEventsModel> call, @NonNull Throwable t) {
-                    Timber.e(t);
-                }
-            });
+            @Override
+            public void onFailure(@NonNull Call<EventfulEventsModel> call, @NonNull Throwable t) {
+                Timber.e(t);
+            }
+        });
+        // TODO: 29/07/2018 -> else of check for connectivity
        /* } else
             Toast.makeText(getContext(), R.string.check_internet_connection, Toast.LENGTH_SHORT).show();*/
+    }
+
+    @Override
+    public void onListItemClick(Event event) {
+        // TODO: 29/07/2018 -> add click
     }
 }

@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
 public abstract class Events {
 
     @SerializedName("event")
-    public abstract ArrayList<Event> event();
+    public abstract ArrayList<Event> eventsList();
 
     public static TypeAdapter<Events> typeAdapter(Gson gson) {
         return new AutoValue_Events.GsonTypeAdapter(gson);
