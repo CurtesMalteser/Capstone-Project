@@ -98,8 +98,14 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:$playServicesVersion"
     implementation "com.google.android.gms:play-services-places:$playServicesVersion"
 
+    // Autovalue
     implementation "com.google.auto.value:auto-value-annotations:$autoValueVersion"
     annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
+    implementation 'com.ryanharter.auto.value:auto-value-gson-annotations:0.8.0'
+    annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.8.0'
+
+
+
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"

@@ -56,14 +56,9 @@ public class PoinzPlacesAdapter extends RecyclerView.Adapter<PoinzPlacesAdapter.
     @NonNull
     @Override
     public PoinzPlacesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.poinz_places_card;
-        LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-
-        return new PoinzPlacesViewHolder(view);
+        return new PoinzPlacesViewHolder(LayoutInflater.from(viewGroup.getContext())
+                .inflate( R.layout.poinz_places_card, viewGroup, false));
     }
 
     @Override
