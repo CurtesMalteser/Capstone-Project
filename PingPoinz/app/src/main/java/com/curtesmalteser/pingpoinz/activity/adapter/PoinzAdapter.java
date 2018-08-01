@@ -45,7 +45,7 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
     public PoinzAdapter.PoinzPlacesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
         return new PoinzAdapter.PoinzPlacesViewHolder(LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.poinz_places_card, viewGroup, false));
+                .inflate(R.layout.poinz_card, viewGroup, false));
     }
 
     @Override
@@ -61,11 +61,17 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
     public class PoinzPlacesViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        @BindView(R.id.tvPointName)
-        TextView tvPointName;
+        @BindView(R.id.tvTitle)
+        TextView tvTitle;
 
-        @BindView(R.id.tvPointAddress)
-        TextView tvPointAddress;
+        @BindView(R.id.tvCategory)
+        TextView tvCategory;
+
+        @BindView(R.id.tvStart)
+        TextView tvStart;
+
+        @BindView(R.id.tvEnd)
+        TextView tvEnd;
 
         public PoinzPlacesViewHolder(View itemView) {
             super(itemView);
@@ -79,15 +85,17 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
 
             final Result event = mResults.get(listIndex);
 
+            tvTitle.setText(event.title());
+            tvCategory.setText(event.category());
+            tvStart.setText(event.start());
+            tvEnd.setText(event.end());
 
-            tvPointName.setText(event.title());
-            tvPointAddress.setText(event.description());
         }
 
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
-            // ComposedPlacesModel moviesModelList = mPlacesList.get(clickedPosition);
+
             Result moviesModelList = mResults.get(clickedPosition);
             mOnClickListener.onListItemClick(moviesModelList);
         }

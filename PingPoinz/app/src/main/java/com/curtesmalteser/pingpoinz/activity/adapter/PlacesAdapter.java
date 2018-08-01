@@ -59,7 +59,7 @@ public class PlacesAdapter
     public PoinzPlacesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
         return new PoinzPlacesViewHolder(LayoutInflater.from(viewGroup.getContext())
-                .inflate( R.layout.poinz_places_card, viewGroup, false));
+                .inflate( R.layout.places_card, viewGroup, false));
     }
 
     @Override
@@ -75,11 +75,17 @@ public class PlacesAdapter
     public class PoinzPlacesViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
+        @BindView(R.id.ivCardPlacePhoto)
+        ImageView ivCardPlacePhoto;
+
         @BindView(R.id.tvPointName)
         TextView tvPointName;
 
         @BindView(R.id.tvPointAddress)
         TextView tvPointAddress;
+
+        @BindView(R.id.tvAttributions)
+        TextView tvAttributions;
 
         public PoinzPlacesViewHolder(View itemView) {
             super(itemView);
@@ -94,6 +100,15 @@ public class PlacesAdapter
             final PlacesModel model = mPlacesList.get(listIndex);
             tvPointName.setText(model.placeName());
             tvPointAddress.setText(model.placeAddress());
+
+            // TODO: 28/07/2018 manage photos on a single model???
+            //tvAttributions.setText(Html.fromHtml(model.placePhotoAttributions()));
+            //ivCardPlacePhoto.setImageBitmap(model.placePhoto());
+
+
+            // Request photos and metadata for the specified place.
+            getPhotos(model.placeId(), ivCardPlacePhoto, tvAttributions);
+
         }
 
         @Override
