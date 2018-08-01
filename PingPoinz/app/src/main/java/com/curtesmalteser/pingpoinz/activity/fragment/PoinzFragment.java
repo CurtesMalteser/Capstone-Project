@@ -13,15 +13,12 @@ import android.view.ViewGroup;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzAdapter;
-import com.curtesmalteser.pingpoinz.data.api.Event;
-import com.curtesmalteser.pingpoinz.data.api.EventfulApiClient;
-import com.curtesmalteser.pingpoinz.data.api.EventfulApiInterface;
-import com.curtesmalteser.pingpoinz.data.api.EventfulEventsModel;
-import com.curtesmalteser.pingpoinz.data.api.Events;
+import com.curtesmalteser.pingpoinz.data.api.Collections;
+import com.curtesmalteser.pingpoinz.data.api.PredictHqClient;
+import com.curtesmalteser.pingpoinz.data.api.PredictHqInterface;
+import com.curtesmalteser.pingpoinz.data.api.Result;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +35,7 @@ public class PoinzFragment extends Fragment
 
     private PoinzAdapter mPoinzAdapter;
 
-    private ArrayList<Event> eventsModel = new ArrayList<>();
+    private ArrayList<Result> eventsModel = new ArrayList<>();
 
     @BindView(R.id.rvPoinzPlaces)
     RecyclerView mRvPoinzPlaces;
@@ -93,46 +90,34 @@ public class PoinzFragment extends Fragment
     }
 
     private void makeMoviesQuery(int page) {
-        EventfulApiInterface apiInterface = EventfulApiClient.getClient().create(EventfulApiInterface.class);
-        Call<EventfulEventsModel> call;
+        PredictHqInterface apiInterface = PredictHqClient.getClient().create(PredictHqInterface.class);
+        Call<Collections> call;
 
-        // TODO: 29/07/2018 -> check for connectivity
-       /* if (cm.getActiveNetworkInfo() != null
-                && cm.getActiveNetworkInfo().isAvailable()
-                && cm.getActiveNetworkInfo().isConnected()) {*/
 
-        Map<String, String> queryParams = new HashMap<>();
-        queryParams.put("date", "Future");
-        queryParams.put("location", "Valais");
-        queryParams.put("app_key", getResources().getString(R.string.EVENTFUL_KEY));
-        queryParams.put("page_number", "1");
-        queryParams.put("page_size", "250");
-
-        call = apiInterface.getEventfulEvents(queryParams);
-        call.enqueue(new Callback<EventfulEventsModel>() {
+        call = apiInterface.getHqEvents();
+        call.enqueue(new Callback<Collections>() {
             @Override
-            public void onResponse(@NonNull Call<EventfulEventsModel> call, @NonNull Response<EventfulEventsModel> response) {
-                eventsModel.addAll(response.body().events().eventsList());
+            public void onResponse(@NonNull Call<Collections> call, @NonNull Response<Collections> response) {
+
+
+                eventsModel.addAll(response.body().results());
                 mPoinzAdapter.notifyDataSetChanged();
 
-               for(Event event : response.body().events().eventsList()) {
-                   if (event.image() != null)
-                       Timber.d("foo this -> " + event.image().url() + event.title());
-               }
+                for (Result result : response.body().results()) {
+                    Timber.d("XPTO " + result.toString());
+                }
+
             }
 
             @Override
-            public void onFailure(@NonNull Call<EventfulEventsModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Collections> call, @NonNull Throwable t) {
                 Timber.e(t);
             }
         });
-        // TODO: 29/07/2018 -> else of check for connectivity
-       /* } else
-            Toast.makeText(getContext(), R.string.check_internet_connection, Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
-    public void onListItemClick(Event event) {
+    public void onListItemClick(Result event) {
         // TODO: 29/07/2018 -> add click
     }
 }

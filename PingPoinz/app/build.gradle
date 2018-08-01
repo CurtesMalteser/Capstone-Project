@@ -12,6 +12,7 @@ android {
 
         resValue("string", "MAPS_KEY", MAPS_KEY)
         resValue("string", "EVENTFUL_KEY", EVENTFUL_KEY)
+        buildConfigField("String", "PREDICT_HQ_TOKEN", PREDICT_HQ_TOKEN)
     }
     buildTypes {
         release {

@@ -10,18 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.curtesmalteser.pingpoinz.R;
-import com.curtesmalteser.pingpoinz.data.api.Event;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
+import com.curtesmalteser.pingpoinz.data.api.Result;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
-
-import static com.curtesmalteser.pingpoinz.data.utils.PicassoHelper.getPhoto;
 
 /**
  * Created by António "Curtes Malteser" Bastião on 29/07/2018.
@@ -30,19 +24,19 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
 
     // TODO: 22/07/2018 Is Context needed?
     private Context mContext;
-    private ArrayList<Event> mEvents;
+    private ArrayList<Result> mResults;
     final private ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
         //  void onListItemClick(ComposedPlacesModel moviesModel);
-        void onListItemClick(Event event);
+        void onListItemClick(Result event);
     }
 
     //public PoinzPlacesAdapter(Context context, ArrayList<ComposedPlacesModel> moviesModelArrayList,
-    public PoinzAdapter(Context context, ArrayList<Event> events,
+    public PoinzAdapter(Context context, ArrayList<Result> events,
                         ListItemClickListener listener) {
         this.mContext = context;
-        this.mEvents = events;
+        this.mResults = events;
         this.mOnClickListener = listener;
     }
 
@@ -61,24 +55,17 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
 
     @Override
     public int getItemCount() {
-        return mEvents.size();
+        return mResults.size();
     }
 
     public class PoinzPlacesViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
-
-
-        @BindView(R.id.ivCardPlacePhoto)
-        ImageView ivCardPlacePhoto;
 
         @BindView(R.id.tvPointName)
         TextView tvPointName;
 
         @BindView(R.id.tvPointAddress)
         TextView tvPointAddress;
-
-        @BindView(R.id.tvAttributions)
-        TextView tvAttributions;
 
         public PoinzPlacesViewHolder(View itemView) {
             super(itemView);
@@ -90,41 +77,18 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
 
         void bind(int listIndex) {
 
-            final Event event = mEvents.get(listIndex);
+            final Result event = mResults.get(listIndex);
 
-            if (event.image() != null) {
-                Picasso.get()
-                        .load(event.image().medium().url())
-                        .networkPolicy(NetworkPolicy.OFFLINE)
-                        .into(ivCardPlacePhoto, new Callback() {
-                            @Override
-                            public void onSuccess() {
-
-                            }
-
-                            @Override
-                            public void onError(Exception e) {
-                                Picasso.get()
-                                        .load(event.image().medium().url())
-                                        .placeholder(R.drawable.ic_launcher_background)
-                                        .error(R.drawable.ic_launcher_background)
-                                        .into(ivCardPlacePhoto);
-                            }
-                        });
-            } else {
-                Picasso.get().cancelRequest(ivCardPlacePhoto);
-                ivCardPlacePhoto.setBackgroundResource(R.drawable.ic_launcher_background);
-            }
 
             tvPointName.setText(event.title());
-            tvPointAddress.setText(event.venueName());
+            tvPointAddress.setText(event.description());
         }
 
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             // ComposedPlacesModel moviesModelList = mPlacesList.get(clickedPosition);
-            Event moviesModelList = mEvents.get(clickedPosition);
+            Result moviesModelList = mResults.get(clickedPosition);
             mOnClickListener.onListItemClick(moviesModelList);
         }
     }
