@@ -1,6 +1,7 @@
 
 package com.curtesmalteser.pingpoinz.data.api;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
@@ -9,16 +10,16 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
 @AutoValue
-public abstract class Event {
+public abstract class Event implements Parcelable {
 
     public static TypeAdapter<Event> typeAdapter(Gson gson) {
         return new AutoValue_Event.GsonTypeAdapter(gson);
     }
 
     // Todo -> Check "Object" and if a model is needed
-    @SerializedName("watching_count")
-    @Nullable
-    public abstract Object watchingCount();
+    //@SerializedName("watching_count")
+    //@Nullable
+    //public abstract Object watchingCount();
 
 
     @SerializedName("olson_path")
@@ -56,11 +57,11 @@ public abstract class Event {
     public abstract String postalCode();
 
 
-    @SerializedName("going_count")
+   // @SerializedName("going_count")
 
-    @Nullable
+   // @Nullable
 
-    public abstract Object goingCount();
+    //public abstract Object goingCount();
 
     /*
      * A false value (0) indicates that the start_time and stop_time are as listed.
@@ -88,11 +89,11 @@ public abstract class Event {
     public abstract Float longitude();
 
 
-    @SerializedName("groups")
+   // @SerializedName("groups")
 
-    @Nullable
+   // @Nullable
 
-    public abstract Object groups();
+   // public abstract Object groups();
 
 
     @SerializedName("url")
@@ -158,18 +159,18 @@ public abstract class Event {
     public abstract String startTime();
 
 
-    @SerializedName("tz_id")
+    //@SerializedName("tz_id")
+//
+   // @Nullable
 
-    @Nullable
-
-    public abstract Object tzId();
+    //public abstract Object tzId();
 
 
-    @SerializedName("description")
+    //@SerializedName("description")
 
-    @Nullable
+   // @Nullable
 
-    public abstract Object description();
+   // public abstract Object description();
 
 
     @SerializedName("modified")
@@ -186,11 +187,11 @@ public abstract class Event {
     public abstract Boolean venueDisplay();
 
 
-    @SerializedName("tz_country")
+  //  @SerializedName("tz_country")
 
-    @Nullable
+   // @Nullable
 
-    public abstract Object tzCountry();
+   // public abstract Object tzCountry();
 
 
     @SerializedName("performers")
@@ -207,11 +208,11 @@ public abstract class Event {
     public abstract String title();
 
 
-    @SerializedName("venue_address")
+   // @SerializedName("venue_address")
 
-    @Nullable
+   // @Nullable
 
-    public abstract Object venueAddress();
+    //public abstract Object venueAddress();
 
 
     @SerializedName("geocode_type")
@@ -221,18 +222,18 @@ public abstract class Event {
     public abstract String geocodeType();
 
 
-    @SerializedName("tz_olson_path")
+    //@SerializedName("tz_olson_path")
 
-    @Nullable
+    //@Nullable
 
-    public abstract Object tzOlsonPath();
+    //public abstract Object tzOlsonPath();
 
 
-    @SerializedName("recur_string")
+   // @SerializedName("recur_string")
 
-    @Nullable
+    //@Nullable
 
-    public abstract Object recurString();
+   // public abstract Object recurString();
 
 
     @SerializedName("calendars")
@@ -249,11 +250,11 @@ public abstract class Event {
     public abstract String owner();
 
 
-    @SerializedName("going")
+   // @SerializedName("going")
 
-    @Nullable
+   // @Nullable
 
-    public abstract Object going();
+    //public abstract Object going();
 
 
     @SerializedName("country_abbr2")
@@ -282,9 +283,9 @@ public abstract class Event {
 
     public abstract String venueId();
 
-    @SerializedName("tz_city")
-    @Nullable
-    public abstract Object tzCity();
+  //  @SerializedName("tz_city")
+   // @Nullable
+  //  public abstract Object tzCity();
 
     @SerializedName("stop_time")
     @Nullable

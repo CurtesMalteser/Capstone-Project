@@ -1,5 +1,6 @@
 package com.curtesmalteser.pingpoinz.data.api;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
@@ -8,7 +9,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
 @AutoValue
-public abstract class Performer {
+public abstract class Performer implements Parcelable {
 
     public static TypeAdapter<Performer> typeAdapter(Gson gson) {
         return new AutoValue_Performer.GsonTypeAdapter(gson);

@@ -19,9 +19,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
-
-import static com.curtesmalteser.pingpoinz.data.utils.PicassoHelper.getPhoto;
 
 /**
  * Created by António "Curtes Malteser" Bastião on 29/07/2018.
@@ -51,7 +48,7 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
     public PoinzAdapter.PoinzPlacesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
         return new PoinzAdapter.PoinzPlacesViewHolder(LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.poinz_places_card, viewGroup, false));
+                .inflate(R.layout.poinz_card, viewGroup, false));
     }
 
     @Override
@@ -68,17 +65,17 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
             implements View.OnClickListener {
 
 
-        @BindView(R.id.ivCardPlacePhoto)
-        ImageView ivCardPlacePhoto;
+        @BindView(R.id.tvTitle)
+        TextView tvTitle;
 
-        @BindView(R.id.tvPointName)
-        TextView tvPointName;
+        @BindView(R.id.tvCategory)
+        TextView tvCategory;
 
-        @BindView(R.id.tvPointAddress)
-        TextView tvPointAddress;
+        @BindView(R.id.tvStart)
+        TextView tvStart;
 
-        @BindView(R.id.tvAttributions)
-        TextView tvAttributions;
+        @BindView(R.id.tvEnd)
+        TextView tvEnd;
 
         public PoinzPlacesViewHolder(View itemView) {
             super(itemView);
@@ -92,32 +89,10 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
 
             final Event event = mEvents.get(listIndex);
 
-            if (event.image() != null) {
-                Picasso.get()
-                        .load(event.image().medium().url())
-                        .networkPolicy(NetworkPolicy.OFFLINE)
-                        .into(ivCardPlacePhoto, new Callback() {
-                            @Override
-                            public void onSuccess() {
-
-                            }
-
-                            @Override
-                            public void onError(Exception e) {
-                                Picasso.get()
-                                        .load(event.image().medium().url())
-                                        .placeholder(R.drawable.ic_launcher_background)
-                                        .error(R.drawable.ic_launcher_background)
-                                        .into(ivCardPlacePhoto);
-                            }
-                        });
-            } else {
-                Picasso.get().cancelRequest(ivCardPlacePhoto);
-                ivCardPlacePhoto.setBackgroundResource(R.drawable.ic_launcher_background);
-            }
-
-            tvPointName.setText(event.title());
-            tvPointAddress.setText(event.venueName());
+            tvTitle.setText(event.title());
+            tvCategory.setText(event.cityName());
+            tvStart.setText(event.startTime());
+            tvEnd.setText(event.startTime());
         }
 
         @Override

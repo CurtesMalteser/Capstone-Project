@@ -1,6 +1,7 @@
 
 package com.curtesmalteser.pingpoinz.data.api;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
@@ -10,7 +11,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @AutoValue
-public abstract class Image {
+public abstract class Image implements Parcelable {
 
     public static TypeAdapter<Image> typeAdapter(Gson gson) {
         return new AutoValue_Image.GsonTypeAdapter(gson);
@@ -24,9 +25,9 @@ public abstract class Image {
     @Nullable
     public abstract String width();
 
-    @SerializedName("caption")
-    @Nullable
-    public abstract Object caption();
+    //@SerializedName("caption")
+    //@Nullable
+    //public abstract Object caption();
 
     @SerializedName("medium")
     @Nullable

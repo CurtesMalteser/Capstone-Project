@@ -1,6 +1,7 @@
 package com.curtesmalteser.pingpoinz.activity.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.curtesmalteser.pingpoinz.BuildConfig;
 import com.curtesmalteser.pingpoinz.R;
+import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzAdapter;
 import com.curtesmalteser.pingpoinz.data.api.Event;
 import com.curtesmalteser.pingpoinz.data.api.EventfulApiClient;
@@ -104,7 +107,7 @@ public class PoinzFragment extends Fragment
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("date", "Future");
         queryParams.put("location", "Valais");
-        queryParams.put("app_key", getResources().getString(R.string.EVENTFUL_KEY));
+        queryParams.put("app_key", BuildConfig.EVENTFUL_KEY);
         queryParams.put("page_number", "1");
         queryParams.put("page_size", "250");
 
@@ -133,6 +136,9 @@ public class PoinzFragment extends Fragment
 
     @Override
     public void onListItemClick(Event event) {
-        // TODO: 29/07/2018 -> add click
-    }
+
+            Intent i = new Intent(getActivity(), PoinzDetailsActivity.class);
+            i.putExtra(getResources().getString(R.string.string_extra), event);
+            startActivity(i);
+            }
 }

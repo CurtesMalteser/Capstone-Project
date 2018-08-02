@@ -15,6 +15,9 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    // todo -> make the only portrait
+    // TODO: 02/08/2018 -> make get the position from the activity and pass it into the fragments 
+
     @BindView(R.id.viewPager)
     ViewPager viewPager;
 

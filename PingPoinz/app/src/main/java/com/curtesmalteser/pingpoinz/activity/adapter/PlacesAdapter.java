@@ -59,7 +59,7 @@ public class PlacesAdapter
     public PoinzPlacesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
         return new PoinzPlacesViewHolder(LayoutInflater.from(viewGroup.getContext())
-                .inflate( R.layout.poinz_places_card, viewGroup, false));
+                .inflate( R.layout.places_card, viewGroup, false));
     }
 
     @Override
