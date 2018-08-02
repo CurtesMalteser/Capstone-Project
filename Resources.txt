@@ -19,3 +19,7 @@ http://www.jsonschema2pojo.org/
 
 Truck Running loader by Jingwu Han 
 https://www.lottiefiles.com/u/1592
+
+
+Bouncy Mapmaker by Tangtai Chen
+https://www.lottiefiles.com/695-bouncy-mapmaker

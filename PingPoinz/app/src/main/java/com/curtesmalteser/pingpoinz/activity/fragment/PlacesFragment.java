@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.adapter.PlacesAdapter;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
@@ -36,6 +37,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
+
+import static android.view.View.GONE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +77,9 @@ public class PlacesFragment extends Fragment
 
     private PlacesModel placesModel;
 
+    @BindView(R.id.animationLoader)
+    LottieAnimationView animationLoader;
+
     @BindView(R.id.rvPlacesPlaces)
     RecyclerView mRvPoinzPlaces;
 
@@ -108,6 +114,8 @@ public class PlacesFragment extends Fragment
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_places, container, false);
         ButterKnife.bind(this, v);
+
+        animationLoader.setVisibility(View.VISIBLE);
 
         // TODO: 22/07/2018 Is Context needed?
         mPoinzPlacesAdapter = new PlacesAdapter(getContext(), mPlacesArrayList, this);
@@ -253,6 +261,8 @@ public class PlacesFragment extends Fragment
 
                                     // photoMetadataBuffer.release();
                                 });
+
+                                animationLoader.setVisibility(GONE);
 
 
                             }

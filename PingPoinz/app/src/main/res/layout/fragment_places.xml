@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.fragment.PlacesFragment">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationLoader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/bouncy_mapmaker"
+        android:visibility="gone"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvPlacesPlaces"
         android:layout_width="match_parent"
@@ -14,7 +26,7 @@
         app:layout_constraintBottom_toTopOf="@+id/attributionsGoogle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/animationLoader"
         tools:listitem="@layout/places_card" />
 
     <ImageView
@@ -24,7 +36,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:contentDescription="Google Logo"
+        android:contentDescription="@string/logo_powered_by_google"
         android:src="@drawable/powered_by_google_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

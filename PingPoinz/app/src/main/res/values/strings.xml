@@ -60,5 +60,6 @@
     <string name="string_start">Start</string>
     <string name="string_end">End</string>
     <string name="string_extra">event_as_extra</string>
+    <string name="logo_powered_by_google">Logo powered by Google</string>
 
 </resources>
