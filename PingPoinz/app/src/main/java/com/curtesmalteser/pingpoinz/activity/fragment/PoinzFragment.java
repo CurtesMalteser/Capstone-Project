@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.curtesmalteser.pingpoinz.BuildConfig;
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
@@ -33,6 +34,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
+import static android.view.View.GONE;
+
 /**
  * Created by António "Curtes Malteser" Bastião on 22/07/2018.
  */
@@ -42,6 +45,9 @@ public class PoinzFragment extends Fragment
     private PoinzAdapter mPoinzAdapter;
 
     private ArrayList<Event> eventsModel = new ArrayList<>();
+
+    @BindView(R.id.animationLoader)
+    LottieAnimationView animationLoader;
 
     @BindView(R.id.rvPoinzPlaces)
     RecyclerView mRvPoinzPlaces;
@@ -64,6 +70,8 @@ public class PoinzFragment extends Fragment
         View v = inflater.inflate(R.layout.fragment_poinz, container, false);
 
         ButterKnife.bind(this, v);
+
+        animationLoader.setVisibility(View.VISIBLE);
 
         // TODO: 22/07/2018 Is Context needed?
         mPoinzAdapter = new PoinzAdapter(getContext(), eventsModel, this);
@@ -122,6 +130,8 @@ public class PoinzFragment extends Fragment
                    if (event.image() != null)
                        Timber.d("foo this -> " + event.image().url() + event.title());
                }
+
+                animationLoader.setVisibility(GONE);
             }
 
             @Override

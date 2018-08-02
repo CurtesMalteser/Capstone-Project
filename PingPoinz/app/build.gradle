@@ -117,6 +117,9 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     implementation "com.squareup.picasso:picasso:$picassoVersion"
+
+
+    implementation 'com.airbnb.android:lottie:2.5.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

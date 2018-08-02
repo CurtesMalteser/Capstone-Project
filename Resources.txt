@@ -5,3 +5,17 @@ https://github.com/google/auto/blob/master/value/userguide/index.md
 https://medium.com/rocknnull/no-more-value-classes-boilerplate-the-power-of-autovalue-bbaf36cf8bbe
 
 http://www.vogella.com/tutorials/AutoValue/article.html
+
+
+***** Retrofit Headers *****
+
+https://futurestud.io/tutorials/retrofit-add-custom-request-header
+
+***** jsonschema2pojo *****
+
+http://www.jsonschema2pojo.org/
+
+***** Lottie Animations *****
+
+Truck Running loader by Jingwu Han 
+https://www.lottiefiles.com/u/1592
