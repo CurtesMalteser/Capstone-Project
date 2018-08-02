@@ -1,5 +1,6 @@
 package com.curtesmalteser.pingpoinz.data.api;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * Created by António "Curtes Malteser" Bastião on 01/08/2018.
  */
 @AutoValue
-public abstract class Result {
+public abstract class Result implements Parcelable {
 
     public static TypeAdapter<Result> typeAdapter(Gson gson) {
         return new AutoValue_Result.GsonTypeAdapter(gson);
@@ -69,7 +70,9 @@ public abstract class Result {
     @SerializedName("state")
     public abstract String state();
 
-    @SerializedName("relevance")
-    public abstract Object relevance();
+
+    // TODO: 01/08/2018 check how relevant the relevance is for this project
+    //  @SerializedName("relevance")
+    //  public abstract Object relevance();
 
 }

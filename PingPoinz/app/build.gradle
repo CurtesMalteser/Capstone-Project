@@ -12,6 +12,7 @@ android {
 
         resValue("string", "MAPS_KEY", MAPS_KEY)
         buildConfigField("String", "PREDICT_HQ_TOKEN", PREDICT_HQ_TOKEN)
+        buildConfigField("String", "UNSPLASH_ACCESS_KEY", UNSPLASH_ACCESS_KEY)
     }
     buildTypes {
         release {
@@ -59,6 +60,7 @@ dependencies {
     implementation "com.google.firebase:firebase-database:$firebaseVersion"
     implementation "com.firebase:geofire-android:$geofireVersion"
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -104,7 +106,7 @@ dependencies {
     annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
     implementation 'com.ryanharter.auto.value:auto-value-gson-annotations:0.8.0'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.8.0'
-
+    annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.6'
 
 
 

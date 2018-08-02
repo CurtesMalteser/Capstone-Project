@@ -1,6 +1,7 @@
 package com.curtesmalteser.pingpoinz.activity.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.curtesmalteser.pingpoinz.R;
+import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzAdapter;
 import com.curtesmalteser.pingpoinz.data.api.Collections;
 import com.curtesmalteser.pingpoinz.data.api.PredictHqClient;
@@ -98,15 +100,8 @@ public class PoinzFragment extends Fragment
         call.enqueue(new Callback<Collections>() {
             @Override
             public void onResponse(@NonNull Call<Collections> call, @NonNull Response<Collections> response) {
-
-
                 eventsModel.addAll(response.body().results());
                 mPoinzAdapter.notifyDataSetChanged();
-
-                for (Result result : response.body().results()) {
-                    Timber.d("XPTO " + result.toString());
-                }
-
             }
 
             @Override
@@ -119,5 +114,11 @@ public class PoinzFragment extends Fragment
     @Override
     public void onListItemClick(Result event) {
         // TODO: 29/07/2018 -> add click
+
+        Intent i = new Intent(getActivity(), PoinzDetailsActivity.class);
+        i.putExtra(getResources().getString(R.string.string_extra), event);
+        startActivity(i);
+
+
     }
 }

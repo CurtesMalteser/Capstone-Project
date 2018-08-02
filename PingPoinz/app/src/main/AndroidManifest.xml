@@ -27,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MapActivity" />
-        <activity android:name=".activity.PlaceDetailsActivity"></activity>
+        <activity android:name=".activity.PlaceDetailsActivity" />
+        <activity android:name=".activity.PoinzDetailsActivity"></activity>
     </application>
 
 </manifest>

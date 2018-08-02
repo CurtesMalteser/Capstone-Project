@@ -17,6 +17,6 @@ public interface PredictHqInterface {
     Call<EventfulEventsModel> getEventfulEvents(@QueryMap Map<String, String> queryParams); */
 
 
-    @GET("events/?start.gte=2018-01-01&&within=10km@-36.844480,174.768368")
+    @GET("events/?start.gte=2018-01-01&&within=100km@-36.844480,174.768368")
     Call<Collections> getHqEvents();
 }
