@@ -1,5 +1,6 @@
 package com.curtesmalteser.pingpoinz.activity.fragment;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import com.airbnb.lottie.LottieAnimationView;
 import com.curtesmalteser.pingpoinz.BuildConfig;
 import com.curtesmalteser.pingpoinz.R;
+import com.curtesmalteser.pingpoinz.activity.AppViewModel;
 import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzAdapter;
 import com.curtesmalteser.pingpoinz.data.api.Event;
@@ -44,6 +46,8 @@ public class PoinzFragment extends Fragment
 
     private PoinzAdapter mPoinzAdapter;
 
+    private  AppViewModel mModel;
+
     private ArrayList<Event> eventsModel = new ArrayList<>();
 
     @BindView(R.id.animationLoader)
@@ -59,6 +63,8 @@ public class PoinzFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
 
     }
 

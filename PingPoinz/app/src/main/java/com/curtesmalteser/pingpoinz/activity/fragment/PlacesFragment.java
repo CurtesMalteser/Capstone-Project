@@ -1,6 +1,7 @@
 package com.curtesmalteser.pingpoinz.activity.fragment;
 
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.curtesmalteser.pingpoinz.R;
+import com.curtesmalteser.pingpoinz.activity.AppViewModel;
 import com.curtesmalteser.pingpoinz.activity.adapter.PlacesAdapter;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
 import com.curtesmalteser.pingpoinz.data.maps.PriceLevel;
@@ -48,6 +50,7 @@ public class PlacesFragment extends Fragment
 
     private static final String TAG = PlacesFragment.class.getSimpleName();
 
+    private  AppViewModel mModel;
 
     // The entry points to the Places API.
     private PlaceDetectionClient mPlaceDetectionClient;
@@ -91,6 +94,8 @@ public class PlacesFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
 
         // Construct a PlaceDetectionClient.
         mPlaceDetectionClient = Places.getPlaceDetectionClient(getActivity());

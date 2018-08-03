@@ -37,7 +37,7 @@ ext {
     rxAndroidVersion = '2.0.2'
     timberVersion = '4.7.1'
     lifecycleVersion = '1.1.1'
-    //roomVersion = '1.1.1'
+    roomVersion = '1.1.1'
     playServicesVersion = '15.0.1'
     autoValueVersion = '1.6.2'
 
@@ -50,6 +50,7 @@ ext {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:exifinterface:$supportLibraryVersion"
     implementation "com.android.support:support-v4:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
@@ -91,10 +92,9 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$lifecycleVersion"
 
-
     // Room
-    // implementation "android.arch.persistence.room:runtime:$roomVersion"
-    //annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
 
     // Maps
     implementation "com.google.android.gms:play-services-location:$playServicesVersion"
