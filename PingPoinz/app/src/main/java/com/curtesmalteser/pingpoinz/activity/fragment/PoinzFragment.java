@@ -14,27 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.curtesmalteser.pingpoinz.BuildConfig;
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.AppViewModel;
 import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzAdapter;
 import com.curtesmalteser.pingpoinz.data.api.Event;
-import com.curtesmalteser.pingpoinz.data.api.EventfulApiClient;
-import com.curtesmalteser.pingpoinz.data.api.EventfulApiInterface;
-import com.curtesmalteser.pingpoinz.data.api.EventfulEventsModel;
-import com.curtesmalteser.pingpoinz.data.api.Events;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import timber.log.Timber;
 
 import static android.view.View.GONE;
 
@@ -46,7 +35,7 @@ public class PoinzFragment extends Fragment
 
     private PoinzAdapter mPoinzAdapter;
 
-    private  AppViewModel mModel;
+    private AppViewModel mModel;
 
     private ArrayList<Event> eventsModel = new ArrayList<>();
 
@@ -71,8 +60,6 @@ public class PoinzFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View v = inflater.inflate(R.layout.fragment_poinz, container, false);
 
         ButterKnife.bind(this, v);
@@ -84,7 +71,13 @@ public class PoinzFragment extends Fragment
         mRvPoinzPlaces.setAdapter(mPoinzAdapter);
         mRvPoinzPlaces.setHasFixedSize(true);
         mRvPoinzPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        makeMoviesQuery(0);
+
+        mModel.getEvents().observe(this, events -> {
+            eventsModel.addAll(events);
+            mPoinzAdapter.notifyDataSetChanged();
+            animationLoader.setVisibility(GONE);
+
+        });
 
 
         return v;
@@ -109,52 +102,11 @@ public class PoinzFragment extends Fragment
 
     }
 
-    private void makeMoviesQuery(int page) {
-        EventfulApiInterface apiInterface = EventfulApiClient.getClient().create(EventfulApiInterface.class);
-        Call<EventfulEventsModel> call;
-
-        // TODO: 29/07/2018 -> check for connectivity
-       /* if (cm.getActiveNetworkInfo() != null
-                && cm.getActiveNetworkInfo().isAvailable()
-                && cm.getActiveNetworkInfo().isConnected()) {*/
-
-        Map<String, String> queryParams = new HashMap<>();
-        queryParams.put("date", "Future");
-        queryParams.put("location", "Valais");
-        queryParams.put("app_key", BuildConfig.EVENTFUL_KEY);
-        queryParams.put("page_number", "1");
-        queryParams.put("page_size", "250");
-
-        call = apiInterface.getEventfulEvents(queryParams);
-        call.enqueue(new Callback<EventfulEventsModel>() {
-            @Override
-            public void onResponse(@NonNull Call<EventfulEventsModel> call, @NonNull Response<EventfulEventsModel> response) {
-                eventsModel.addAll(response.body().events().eventsList());
-                mPoinzAdapter.notifyDataSetChanged();
-
-               for(Event event : response.body().events().eventsList()) {
-                   if (event.image() != null)
-                       Timber.d("foo this -> " + event.image().url() + event.title());
-               }
-
-                animationLoader.setVisibility(GONE);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<EventfulEventsModel> call, @NonNull Throwable t) {
-                Timber.e(t);
-            }
-        });
-        // TODO: 29/07/2018 -> else of check for connectivity
-       /* } else
-            Toast.makeText(getContext(), R.string.check_internet_connection, Toast.LENGTH_SHORT).show();*/
-    }
-
     @Override
     public void onListItemClick(Event event) {
 
-            Intent i = new Intent(getActivity(), PoinzDetailsActivity.class);
-            i.putExtra(getResources().getString(R.string.string_extra), event);
-            startActivity(i);
-            }
+        Intent i = new Intent(getActivity(), PoinzDetailsActivity.class);
+        i.putExtra(getResources().getString(R.string.string_extra), event);
+        startActivity(i);
+    }
 }
