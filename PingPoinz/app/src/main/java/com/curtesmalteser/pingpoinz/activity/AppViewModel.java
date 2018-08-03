@@ -10,6 +10,7 @@ import com.curtesmalteser.pingpoinz.data.api.Event;
 import com.curtesmalteser.pingpoinz.data.api.EventfulApiClient;
 import com.curtesmalteser.pingpoinz.data.api.EventfulApiInterface;
 import com.curtesmalteser.pingpoinz.data.api.EventfulEventsModel;
+import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,14 +28,26 @@ import static android.view.View.GONE;
  */
 public class AppViewModel extends ViewModel {
 
+
+    // TODO: 29/07/2018 -> check for connectivity in on reactive way???
+
     private MutableLiveData<List<Event>> eventsList;
+    private MutableLiveData<List<PlacesModel>> placesList = new MutableLiveData<>();
 
     public LiveData<List<Event>> getEvents() {
         if (eventsList == null) {
-            eventsList = new MutableLiveData<List<Event>>();
+            eventsList = new MutableLiveData<>();
             makeMoviesQuery();
         }
         return eventsList;
+    }
+
+    public void setPlaces(List<PlacesModel> places) {
+            placesList.postValue(places);
+    }
+
+    public LiveData<List<PlacesModel>> getPlaces() {
+        return placesList;
     }
 
     private void makeMoviesQuery() {

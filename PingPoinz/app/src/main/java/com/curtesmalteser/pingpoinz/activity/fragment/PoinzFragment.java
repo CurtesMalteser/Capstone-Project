@@ -35,7 +35,7 @@ public class PoinzFragment extends Fragment
 
     private PoinzAdapter mPoinzAdapter;
 
-    private AppViewModel mModel;
+    private AppViewModel mViewModel;
 
     private ArrayList<Event> eventsModel = new ArrayList<>();
 
@@ -52,9 +52,7 @@ public class PoinzFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
-
+        mViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
     }
 
     @Override
@@ -72,34 +70,13 @@ public class PoinzFragment extends Fragment
         mRvPoinzPlaces.setHasFixedSize(true);
         mRvPoinzPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        mModel.getEvents().observe(this, events -> {
+        mViewModel.getEvents().observe(this, events -> {
             eventsModel.addAll(events);
             mPoinzAdapter.notifyDataSetChanged();
             animationLoader.setVisibility(GONE);
 
         });
-
-
         return v;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
     }
 
     @Override

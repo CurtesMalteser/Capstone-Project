@@ -133,41 +133,4 @@ public class LocationUpdatesManager {
     }
 
 
-    // ***** End of Change location settings *****
-
-    // ***** Receive location updates *****
-
-    public void startLocationUpdates() {
-        if (checkPermission()) {
-            mFusedLocationClient.requestLocationUpdates(createLocationRequest(),
-                    mLocationCallback,
-                    null /* Looper */);
-        }
-    }
-
-    public void stopLocationUpdates() {
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-    }
-
-    public void updateLocation() {
-        this.mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    // Update UI with location data
-                    // ...
-
-                    mDelegate.updatedPosition(location);
-                }
-            }
-        };
-    }
-
-
-    // ***** End of Receive location updates *****
-
-
 }

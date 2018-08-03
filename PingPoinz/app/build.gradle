@@ -56,9 +56,9 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
     // Firebase && GeoFire
-    implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:$firebaseVersion"
-    implementation "com.firebase:geofire-android:$geofireVersion"
+    //implementation "com.google.firebase:firebase-core:$firebaseVersion"
+    //implementation "com.google.firebase:firebase-database:$firebaseVersion"
+    //implementation "com.firebase:geofire-android:$geofireVersion"
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
@@ -81,8 +81,8 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     // ReactiveX
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+   // implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+   // implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     // Timber
     implementation "com.jakewharton.timber:timber:$timberVersion"
