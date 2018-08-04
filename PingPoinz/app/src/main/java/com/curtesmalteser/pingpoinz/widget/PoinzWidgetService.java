@@ -57,8 +57,6 @@ public class PoinzWidgetService extends RemoteViewsService {
 
         }
 
-        
-
         public void onCreate() {
             // In onCreate() you setup any connections / cursors to your data source. Heavy lifting,
             // for example downloading or creating content etc, should be deferred to onDataSetChanged()
