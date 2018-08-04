@@ -13,8 +13,11 @@ public class EventDbModel {
 
     public static final String TABLE_NAME = "events_table";
 
+    // Set the name of ID column
+    public static final String COLUMN_ID = BaseColumns._ID;
+
     @PrimaryKey(autoGenerate = true) //By default is false. I left it to make the code clear.
-    @ColumnInfo(index = true, name = BaseColumns._ID)
+    @ColumnInfo(index = true, name = COLUMN_ID)
     int _id;
 
     @ColumnInfo(name = "comment_count")
