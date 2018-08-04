@@ -8,11 +8,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.CursorLoader;
 import android.widget.RemoteViews;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
 import com.curtesmalteser.pingpoinz.data.provider.TaskPoinzContentProvider;
 
 /**
@@ -46,7 +49,8 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
-        PoinzWidgetService.startActionGetEvents(context);
+        PoinzWidgetService poinzWidgetService = new PoinzWidgetService();
+        poinzWidgetService.startActionGetEvents(context);
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
     }
 
@@ -54,42 +58,17 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
 
-        /*new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... voids) {
-                Cursor taskCursor = context.getContentResolver().query(
-                        TaskPoinzContentProvider.URI_EVENTS,
-                        *//* Columns; leaving this null returns every column in the table *//*
-                        null,
-                        *//* Optional specification for columns in the "where" clause above *//*
-                        null,
-                        *//* Values for "where" clause *//*
-                        null,
-                        *//* Sort order to return in Cursor *//*
-                        null);
+        PoinzDao dao = PoinzDatabase.getDatabase(context).poinzDao();
+        dao.getAllCurrencies().observeForever(eventDbModels -> {
+                    for (int appWidgetId : appWidgetIds) {
 
-                String title = "N/A";
-                if (taskCursor != null && taskCursor.getCount() > 0) {
-                    taskCursor.moveToFirst();
-
-                    int index = taskCursor.getColumnIndex("title");
-                    title = taskCursor.getString(index);
-                    taskCursor.close();
+                        updateAppWidget(context, appWidgetManager, eventDbModels.get(0).getTitle(), appWidgetId);
+                    }
                 }
-                return title;
-            }
+        );
 
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-
-                for (int appWidgetId : appWidgetIds) {
-                    updateAppWidget(context, appWidgetManager, s, appWidgetId);
-                }
-            }
-        }.execute();
-*/
-        PoinzWidgetService.startActionGetEvents(context);
+        PoinzWidgetService poinzWidgetService = new PoinzWidgetService();
+        poinzWidgetService.startActionGetEvents(context);
 
     }
 
