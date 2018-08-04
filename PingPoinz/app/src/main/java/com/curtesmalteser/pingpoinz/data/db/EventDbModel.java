@@ -115,88 +115,44 @@ public class EventDbModel {
         return regionAbbr;
     }
 
-    public void setRegionAbbr(String regionAbbr) {
-        this.regionAbbr = regionAbbr;
-    }
-
     public String getPostalCode() {
         return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
     }
 
     public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
-    }
-
     public Float getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
     }
 
     public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
-
     public String getCityName() {
         return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
     }
 
     public String getCountryName() {
         return countryName;
     }
 
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-
     public String getCountryAbbr() {
         return countryAbbr;
-    }
-
-    public void setCountryAbbr(String countryAbbr) {
-        this.countryAbbr = countryAbbr;
     }
 
     public String getRegionName() {
         return regionName;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
-
     public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
     public Boolean getVenueDisplay() {
         return venueDisplay;
-    }
-
-    public void setVenueDisplay(Boolean venueDisplay) {
-        this.venueDisplay = venueDisplay;
     }
 
     public String getTitle() {
@@ -211,15 +167,8 @@ public class EventDbModel {
         return stopTime;
     }
 
-    public void setStopTime(String stopTime) {
-        this.stopTime = stopTime;
-    }
-
     public String getVenueName() {
         return venueName;
     }
 
-    public void setVenueName(String venueName) {
-        this.venueName = venueName;
-    }
 }
