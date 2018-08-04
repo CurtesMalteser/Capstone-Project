@@ -2,6 +2,8 @@ package com.curtesmalteser.pingpoinz;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
+
 import timber.log.Timber;
 
 /**
@@ -14,6 +16,7 @@ public class App extends Application {
         super.onCreate();
 
         Timber.plant(new Timber.DebugTree());
+        Stetho.initializeWithDefaults(this);
 
     }
 }

@@ -33,6 +33,9 @@ public interface PoinzDao {
     @Delete
     int deleteCurrencies(EventDbModel... currenciesModel);
 
+    @Query("DELETE FROM " + EventDbModel.TABLE_NAME)
+    int deleteEventsTable();
+
     //***************** Methods to use with ContentProvider *****************//
     // This methods returns a Cursor to use on CurrenciesContentProvider and select all currencies
     @Query("SELECT * FROM " + EventDbModel.TABLE_NAME)

@@ -21,22 +21,11 @@ public class EventDbModel {
     @ColumnInfo(index = true, name = COLUMN_ID)
     int id;
 
-    @ColumnInfo(name = "comment_count")
-    private Integer commentCount;
-
     @ColumnInfo(name = "region_abbr")
     private String regionAbbr;
 
     @ColumnInfo(name = "postal_code")
     private String postalCode;
-
-    /*
-     * A false value (0) indicates that the start_time and stop_time are as listed.
-     * If the all_day flag is set to 1 (all day) or 2 (no time specified),
-     * then the tim
-     * e should be omitted from start_time and stop_time.*/
-    @ColumnInfo(name = "all_day")
-    private Integer allDay;
 
     @ColumnInfo(name = "latitude")
     private Float latitude;
@@ -68,18 +57,6 @@ public class EventDbModel {
     @ColumnInfo(name = "title")
     private String title;
 
-    @ColumnInfo(name = "geocode_type")
-    private String geocodeType;
-
-    @ColumnInfo(name = "owner")
-    private String owner;
-
-    @ColumnInfo(name = "country_abbr2")
-    private String countryAbbr2;
-
-    @ColumnInfo(name = "venue_id")
-    private String venueId;
-
     @ColumnInfo(name = "stop_time")
     private String stopTime;
 
@@ -87,11 +64,13 @@ public class EventDbModel {
     private String venueName;
 
     @Ignore
-    public EventDbModel(Integer commentCount, String regionAbbr, String postalCode, Integer allDay, Float latitude, Float longitude, String eventId, String cityName, String countryName, String countryAbbr, String regionName, String startTime, Boolean venueDisplay, String title, String geocodeType, String owner, String countryAbbr2, String venueId, String stopTime, String venueName) {
-        this.commentCount = commentCount;
+    public EventDbModel(String regionAbbr, String postalCode,
+                        Float latitude, Float longitude, String eventId,
+                        String cityName, String countryName, String countryAbbr,
+                        String regionName, String startTime, Boolean venueDisplay,
+                        String title, String stopTime, String venueName) {
         this.regionAbbr = regionAbbr;
         this.postalCode = postalCode;
-        this.allDay = allDay;
         this.latitude = latitude;
         this.longitude = longitude;
         this.eventId = eventId;
@@ -102,20 +81,14 @@ public class EventDbModel {
         this.startTime = startTime;
         this.venueDisplay = venueDisplay;
         this.title = title;
-        this.geocodeType = geocodeType;
-        this.owner = owner;
-        this.countryAbbr2 = countryAbbr2;
-        this.venueId = venueId;
         this.stopTime = stopTime;
         this.venueName = venueName;
     }
 
-    public EventDbModel(int id, Integer commentCount, String regionAbbr, String postalCode, Integer allDay, Float latitude, Float longitude, String eventId, String cityName, String countryName, String countryAbbr, String regionName, String startTime, Boolean venueDisplay, String title, String geocodeType, String owner, String countryAbbr2, String venueId, String stopTime, String venueName) {
+    public EventDbModel(int id, String regionAbbr, String postalCode, Float latitude, Float longitude, String eventId, String cityName, String countryName, String countryAbbr, String regionName, String startTime, Boolean venueDisplay, String title, String stopTime, String venueName) {
         this.id = id;
-        this.commentCount = commentCount;
         this.regionAbbr = regionAbbr;
         this.postalCode = postalCode;
-        this.allDay = allDay;
         this.latitude = latitude;
         this.longitude = longitude;
         this.eventId = eventId;
@@ -126,10 +99,6 @@ public class EventDbModel {
         this.startTime = startTime;
         this.venueDisplay = venueDisplay;
         this.title = title;
-        this.geocodeType = geocodeType;
-        this.owner = owner;
-        this.countryAbbr2 = countryAbbr2;
-        this.venueId = venueId;
         this.stopTime = stopTime;
         this.venueName = venueName;
     }
@@ -140,14 +109,6 @@ public class EventDbModel {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Integer getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(Integer commentCount) {
-        this.commentCount = commentCount;
     }
 
     public String getRegionAbbr() {
@@ -164,14 +125,6 @@ public class EventDbModel {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public Integer getAllDay() {
-        return allDay;
-    }
-
-    public void setAllDay(Integer allDay) {
-        this.allDay = allDay;
     }
 
     public Float getLatitude() {
@@ -252,38 +205,6 @@ public class EventDbModel {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getGeocodeType() {
-        return geocodeType;
-    }
-
-    public void setGeocodeType(String geocodeType) {
-        this.geocodeType = geocodeType;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public String getCountryAbbr2() {
-        return countryAbbr2;
-    }
-
-    public void setCountryAbbr2(String countryAbbr2) {
-        this.countryAbbr2 = countryAbbr2;
-    }
-
-    public String getVenueId() {
-        return venueId;
-    }
-
-    public void setVenueId(String venueId) {
-        this.venueId = venueId;
     }
 
     public String getStopTime() {

@@ -3,6 +3,7 @@ package com.curtesmalteser.pingpoinz.activity.fragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,10 @@ import com.curtesmalteser.pingpoinz.activity.AppViewModel;
 import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzAdapter;
 import com.curtesmalteser.pingpoinz.data.api.Event;
+import com.curtesmalteser.pingpoinz.data.db.EventDbModel;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
+import com.curtesmalteser.pingpoinz.data.db.StoreEventsAsync;
 
 import java.util.ArrayList;
 
@@ -39,6 +44,10 @@ public class PoinzFragment extends Fragment
 
     private ArrayList<Event> eventsModel = new ArrayList<>();
 
+    // Room variables
+    private PoinzDatabase mDb;
+    private PoinzDao mPoinzDao;
+
     @BindView(R.id.animationLoader)
     LottieAnimationView animationLoader;
 
@@ -53,6 +62,11 @@ public class PoinzFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
+
+        // Instantiate Room DB
+        mDb = PoinzDatabase.getDatabase(getActivity());
+        mPoinzDao = mDb.poinzDao();
+
     }
 
     @Override
@@ -75,13 +89,15 @@ public class PoinzFragment extends Fragment
             mPoinzAdapter.notifyDataSetChanged();
             animationLoader.setVisibility(GONE);
 
+            if (events != null) {
+                new StoreEventsAsync().execute(getActivity(), events);
+            }
         });
         return v;
     }
 
     @Override
     public void onListItemClick(Event event) {
-
         Intent i = new Intent(getActivity(), PoinzDetailsActivity.class);
         i.putExtra(getResources().getString(R.string.string_extra), event);
         startActivity(i);
