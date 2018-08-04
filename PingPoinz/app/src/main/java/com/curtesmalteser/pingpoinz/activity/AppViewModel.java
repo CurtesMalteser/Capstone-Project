@@ -28,7 +28,6 @@ import static android.view.View.GONE;
  */
 public class AppViewModel extends ViewModel {
 
-
     // TODO: 29/07/2018 -> check for connectivity in on reactive way???
 
     private MutableLiveData<List<Event>> eventsList;

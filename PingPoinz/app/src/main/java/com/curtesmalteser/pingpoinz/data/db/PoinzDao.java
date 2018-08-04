@@ -9,6 +9,7 @@ import android.arch.persistence.room.Update;
 import android.database.Cursor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
@@ -16,7 +17,7 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
  * Created by António "Curtes Malteser" Bastião on 04/08/2018.
  */
 @Dao
-public interface EventsDao {
+public interface PoinzDao {
     @Insert(onConflict = REPLACE)
     void addCurrencies(ArrayList<EventDbModel> currenciesModel);
 
@@ -24,7 +25,7 @@ public interface EventsDao {
     int updateCurrencies(EventDbModel... currenciesModel);
 
     @Query("SELECT * FROM " + EventDbModel.TABLE_NAME)
-    LiveData<ArrayList<EventDbModel>> getAllCurrencies();
+    LiveData<List<EventDbModel>> getAllCurrencies();
 
     @Query("SELECT * FROM events_table WHERE event_id LIKE :eventId")
     EventDbModel selectSingleCurrency(String eventId);
@@ -39,6 +40,6 @@ public interface EventsDao {
 
     // Select a cheese by the ID
     // ATTENTION: it has to to take a long id because that's uri parse pass
-    @Query("SELECT * FROM " + EventDbModel.TABLE_NAME + " WHERE " + EventDbModel.COLUMN_ID + " = :_id")
-    Cursor selectById(long _id);
+    @Query("SELECT * FROM " + EventDbModel.TABLE_NAME + " WHERE " + EventDbModel.COLUMN_ID + " = :id")
+    Cursor selectById(long id);
 }
