@@ -3,15 +3,10 @@ package com.curtesmalteser.pingpoinz.widget;
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.content.CursorLoader;
 
-import com.curtesmalteser.pingpoinz.data.db.EventDbModel;
 import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
 import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
 
