@@ -28,7 +28,17 @@
         </activity>
         <activity android:name=".activity.MapActivity" />
         <activity android:name=".activity.PlaceDetailsActivity" />
-        <activity android:name=".activity.PoinzDetailsActivity"></activity>
+        <activity android:name=".activity.PoinzDetailsActivity" />
+
+        <receiver android:name=".widget.PoinzWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/poinz_widget_provider_info" />
+        </receiver>
     </application>
 
 </manifest>
