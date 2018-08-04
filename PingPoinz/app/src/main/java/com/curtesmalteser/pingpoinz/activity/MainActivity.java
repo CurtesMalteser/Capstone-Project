@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
     // End of variables to access position since, the Google Maps API requires ActivityContext
 
-
     private List<PlacesModel> mPlacesArrayList = new ArrayList();
     private AppViewModel mViewModel;
 
@@ -126,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
         // Construct a PlaceDetectionClient.
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this);
 
-
-        //getLastKnowLocation();
 
         createLocationRequest();
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -177,19 +174,21 @@ public class MainActivity extends AppCompatActivity {
                     // Update UI with location data
                     // ...
 
-
-
                     // TODO: 04/08/2018 -> annotation one.a) 
                     mKnownLocation = location;
                     Timber.d("AJDB -> lat: " + location.getLatitude() + " long: " + location.getLongitude());
+
+                    // TODO: 04/08/2018 -> LiveData to update location and showCurrentPlace(); annotation Two
                 }
             }
 
-            ;
         };
 
 
         // TODO: 04/08/2018 -> check where show places fits better
+        /* annotation Two -> Probably on onLocationResult(), but a method to update the places only when the distance
+        *  to the previous point is > than X
+        */
 
         showCurrentPlace();
 
@@ -202,22 +201,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (mRequestingLocationUpdates) {
             startLocationUpdates();
-        }
-    }
-
-    private void getLastKnowLocation() {
-        if (checkPermission()) {
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            // Got last known location. In some rare situations this can be null.
-                            if (location != null) {
-                                // Logic to handle location object
-                                mKnownLocation = location;
-                            }
-                        }
-                    });
         }
     }
 
@@ -324,11 +307,12 @@ public class MainActivity extends AppCompatActivity {
                                 String stringPriceLevel = getString(string);
 
                                 String attributions = placeLikelihood.getPlace().getAttributions() != null ? placeLikelihood.getPlace().getAttributions().toString() : "Attributions Not Available";
+                                String address = placeLikelihood.getPlace().getAddress() != null ? placeLikelihood.getPlace().getAddress().toString() : "Address Not Available";
 
                                 placesModel = PlacesModel.builder()
                                         .setPlaceId(placeLikelihood.getPlace().getId())
                                         .setPlaceName(placeLikelihood.getPlace().getName().toString())
-                                        .setPlaceAddress(placeLikelihood.getPlace().getAddress().toString())
+                                        .setPlaceAddress(address)
                                         .setPlacePriceLevel(stringPriceLevel)
                                         .setPlaceRating(placeLikelihood.getPlace().getRating())
                                         .setPlaceAttributions(attributions)
@@ -351,7 +335,6 @@ public class MainActivity extends AppCompatActivity {
                     });
         } else {
 
-            // TODO: 22/07/2018 Think about something useful
             getLocationPermission();
 
             // The user has not granted permission.
