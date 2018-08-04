@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this);
 
 
-        getLastKnowLocation();
+        //getLastKnowLocation();
 
         createLocationRequest();
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -177,8 +177,11 @@ public class MainActivity extends AppCompatActivity {
                     // Update UI with location data
                     // ...
 
+
+
                     // TODO: 04/08/2018 -> annotation one.a) 
                     mKnownLocation = location;
+                    Timber.d("AJDB -> lat: " + location.getLatitude() + " long: " + location.getLongitude());
                 }
             }
 
