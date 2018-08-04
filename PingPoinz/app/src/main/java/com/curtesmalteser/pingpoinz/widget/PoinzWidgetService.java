@@ -1,24 +1,36 @@
 package com.curtesmalteser.pingpoinz.widget;
 
-import android.content.Intent;
-import android.widget.RemoteViewsService;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.appwidget.AppWidgetManager;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.curtesmalteser.pingpoinz.R;
+import com.curtesmalteser.pingpoinz.activity.AppViewModel;
+import com.curtesmalteser.pingpoinz.data.db.EventDbModel;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by António "Curtes Malteser" Bastião on 04/08/2018.
  */
 public class PoinzWidgetService extends RemoteViewsService {
+
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new PoinzRemoteViewsFactory(this.getApplicationContext(), intent);
@@ -29,12 +41,23 @@ public class PoinzWidgetService extends RemoteViewsService {
         private List<PoinzWidgetItem> mWidgetItems = new ArrayList<>();
         private Context mContext;
         private int mAppWidgetId;
+        private PoinzDatabase mDb;
+        private PoinzDao mPoinzDao;
+        private Context context;
+        private Observer<List<EventDbModel>> x;
+        private LiveData<List<EventDbModel>> listLiveData = new MutableLiveData<>();
+        private List<EventDbModel> mEventDbModel = new ArrayList<>();
+
 
         public PoinzRemoteViewsFactory(Context context, Intent intent) {
             mContext = context;
             mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                     AppWidgetManager.INVALID_APPWIDGET_ID);
+            context.startService(intent);
+
         }
+
+        
 
         public void onCreate() {
             // In onCreate() you setup any connections / cursors to your data source. Heavy lifting,
@@ -43,15 +66,17 @@ public class PoinzWidgetService extends RemoteViewsService {
             for (int i = 0; i < mCount; i++) {
                 mWidgetItems.add(new PoinzWidgetItem(i + "!"));
             }
+
             // We sleep for 3 seconds here to show how the empty view appears in the interim.
             // The empty view is set in the StackWidgetProvider and should be a sibling of the
             // collection view.
             try {
-                Thread.sleep(3000);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
 
         public void onDestroy() {
             // In onDestroy() you should tear down anything that was setup for your data source,
@@ -68,24 +93,26 @@ public class PoinzWidgetService extends RemoteViewsService {
             // We construct a remote views item based on our widget item xml file, and set the
             // text based on the position.
             RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.poinz_widget_layout);
-            rv.setTextViewText(R.id.widgetTvTitle, mWidgetItems.get(position).text);
+            rv.setTextViewText(R.id.empty_view, mWidgetItems.get(position).text);
             // Next, we set a fill-intent which will be used to fill-in the pending intent template
             // which is set on the collection view in StackWidgetProvider.
             Bundle extras = new Bundle();
             extras.putInt(PoinzWidgetProvider.EXTRA_ITEM, position);
             Intent fillInIntent = new Intent();
             fillInIntent.putExtras(extras);
-            rv.setOnClickFillInIntent(R.id.widgetPoinz, fillInIntent);
+            rv.setOnClickFillInIntent(R.id.stack_view, fillInIntent);
             // You can do heaving lifting in here, synchronously. For example, if you need to
             // process an image, fetch something from the network, etc., it is ok to do it here,
             // synchronously. A loading view will show up in lieu of the actual contents in the
             // interim.
             try {
                 System.out.println("Loading view " + position);
-                Thread.sleep(500);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+
             // Return the remote views object.
             return rv;
         }

@@ -4,7 +4,6 @@
     android:updatePeriodMillis="86400000"
     android:previewImage="@drawable/ic_map_white_24dp"
     android:initialLayout="@layout/poinz_widget_layout"
-    android:configure="com.curtesmalteser.pingpoinz.activity.MainActivity"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen">
 </appwidget-provider>

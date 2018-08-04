@@ -3,13 +3,24 @@ package com.curtesmalteser.pingpoinz.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.curtesmalteser.pingpoinz.R;
+import com.curtesmalteser.pingpoinz.data.db.EventDbModel;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by António "Curtes Malteser" Bastião on 04/08/2018.
@@ -50,6 +61,8 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // update each of the widgets with the remote adapter
         for (int i = 0; i < appWidgetIds.length; ++i) {
+
+
             // Here we setup the intent which points to the StackViewService which will
             // provide the views for this collection.
             Intent intent = new Intent(context, PoinzWidgetService.class);
@@ -61,7 +74,7 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
             rv.setRemoteAdapter(appWidgetIds[i], R.id.stack_view, intent);
             // The empty view is displayed when the collection has no items. It should be a sibling
             // of the collection view.
-            rv.setEmptyView(R.id.stack_view, R.id.widgetTvTitle);
+            rv.setEmptyView(R.id.stack_view, R.id.empty_view);
             // Here we setup the a pending intent template. Individuals items of a collection
             // cannot setup their own pending intents, instead, the collection as a whole can
             // setup a pending intent template, and the individual items can set a fillInIntent
