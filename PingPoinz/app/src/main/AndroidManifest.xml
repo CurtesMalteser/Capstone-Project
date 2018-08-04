@@ -39,6 +39,13 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/poinz_widget_provider_info" />
         </receiver>
+
+        <!-- Register the ContentProvider -->
+        <provider
+            android:name=".data.provider.TaskPoinzContentProvider"
+            android:authorities="com.curtesmalteser.pingpoinz.data.provider"
+            android:exported="true"
+            android:permission="com.curtesmalteser.pingpoinz.data.provider.READ" />
     </application>
 
 </manifest>
