@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widgetPoinz"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_for_testing"
+    android:orientation="vertical">
+
+    <StackView
+        android:id="@+id/stack_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:loopViews="true" />
+
+    <TextView
+        android:id="@+id/widgetTvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:padding="16dp"
+        tools:text="Schloss Leuk" />
+
+    <!--<TextView
+        android:id="@+id/tvCategoryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/string_category"
+        app:layout_constraintBottom_toTopOf="@+id/tvStart"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+        app:layout_constraintStart_toEndOf="@+id/tvStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvStart" />
+
+
+    <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_category"
+        app:layout_constraintBottom_toTopOf="@+id/tvEnd"
+        app:layout_constraintEnd_toStartOf="@+id/tvCategoryLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvCategoryLabel"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tvStartLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_start"
+        app:layout_constraintStart_toStartOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvStart"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvStartLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvStartLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvStartLabel"
+        tools:text="2018-12-19T06:00:00Z" />
+
+    <TextView
+        android:id="@+id/tvEndLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvStartLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvStartLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvStartLabel" />
+
+    <TextView
+        android:id="@+id/tvEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvEndLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvEndLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvEndLabel"
+        tools:text="2018-12-19T06:00:00Z" />-->
+
+</LinearLayout>
