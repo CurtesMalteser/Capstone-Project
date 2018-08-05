@@ -49,32 +49,24 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
-        if (poinzWidgetService == null) {
-            poinzWidgetService = new PoinzWidgetService();
-            poinzWidgetService.startActionGetEvents(context);
-        }
+        PoinzWidgetSync.scheduleFirebaseJobDispatcher(context);
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
+        PoinzWidgetSync.scheduleFirebaseJobDispatcher(context);
 
         PoinzDao dao = PoinzDatabase.getDatabase(context).poinzDao();
         dao.getAllCurrencies().observeForever(eventDbModels -> {
                     for (int appWidgetId : appWidgetIds) {
 
-                        if(eventDbModels != null)
-                        updateAppWidget(context, appWidgetManager, eventDbModels.get(0), appWidgetId);
+                        if (eventDbModels != null)
+                            updateAppWidget(context, appWidgetManager, eventDbModels.get(0), appWidgetId);
                     }
                 }
         );
-
-        if (poinzWidgetService == null) {
-            poinzWidgetService = new PoinzWidgetService();
-            poinzWidgetService.startActionGetEvents(context);
-        }
-
     }
 
     @Override
@@ -85,6 +77,14 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        if(appWidgetIds == null || appWidgetIds.length == 0) {
+            PoinzWidgetSync.cancelDispatcher();
+        }
+        super.onDeleted(context, appWidgetIds);
     }
 }
 

@@ -1,49 +1,31 @@
 package com.curtesmalteser.pingpoinz.widget;
 
-import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
 import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
+import com.firebase.jobdispatcher.JobParameters;
+import com.firebase.jobdispatcher.JobService;
 
 /**
  * Created by António "Curtes Malteser" Bastião on 04/08/2018.
  */
-public class PoinzWidgetService extends JobIntentService {
+public class PoinzWidgetService extends JobService {
 
-    public static final String ACTION_GET_EVENTS = "com.curtesmalteser.pingpoinz.widget.get_events";
     private Context mContext;
-    public static final int JOB_ID = 1;
-
-    public PoinzWidgetService() {
-    }
-
-
-    public static void enqueueWork(Context context, Intent work) {
-        enqueueWork(context, PoinzWidgetService.class, JOB_ID, work);
-    }
-
 
     @Override
-    protected void onHandleWork(@NonNull Intent intent) {
-        final String action = intent.getAction();
-        if (ACTION_GET_EVENTS.equals(action)) {
-            handleGetEvents();
-        }
+    public boolean onStartJob(JobParameters job) {
+        mContext = getApplicationContext();
+        handleGetEvents();
+        return true;
     }
 
-    public void startActionGetEvents(Context context) {
-        mContext = context;
-        Intent intent = new Intent(context, PoinzWidgetService.class);
-        intent.setAction(ACTION_GET_EVENTS);
-
-        //context.startService(intent);
-        PoinzWidgetService.enqueueWork(context, intent);
+    @Override
+    public boolean onStopJob(JobParameters job) {
+        return false;
     }
 
     private void handleGetEvents() {
@@ -51,8 +33,6 @@ public class PoinzWidgetService extends JobIntentService {
         dao.getAllCurrencies().observeForever(eventDbModels -> {
                     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
                     int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, PoinzWidgetProvider.class));
-                    //Now update all widgets
-                    //PoinzWidgetProvider.updateEventsWidget(this, appWidgetManager, imgRes, appWidgetIds);
                     PoinzWidgetProvider.updateEventsWidgets(this, appWidgetManager, eventDbModels.get(0), appWidgetIds);
                 }
         );
