@@ -1,9 +1,11 @@
 package com.curtesmalteser.pingpoinz.activity;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
+import android.text.Html;
 
 import com.curtesmalteser.pingpoinz.BuildConfig;
 import com.curtesmalteser.pingpoinz.R;
@@ -29,6 +31,18 @@ public class PoinzDetailsActivity extends AppCompatActivity {
     @BindView(R.id.poinzPoster)
     AppCompatImageView poinzPoster;
 
+    @BindView(R.id.tvTitle)
+    AppCompatTextView tvTitle;
+
+    @BindView(R.id.tvDescription)
+    AppCompatTextView tvDescription;
+
+    @BindView(R.id.tvVenueName)
+    AppCompatTextView tvVenueName;
+
+    @BindView(R.id.tvCity)
+    AppCompatTextView tvCity;
+
     private Event event;
 
     @Override
@@ -41,6 +55,12 @@ public class PoinzDetailsActivity extends AppCompatActivity {
         if (getIntent().hasExtra(getResources().getString(R.string.string_extra))) {
             event = getIntent().getParcelableExtra(getResources().getString(R.string.string_extra));
             makePicturesQuery(event.venueName());
+            tvTitle.setText(event.title());
+            String description = event.description() != null ? event.description() : "N/A";
+            tvDescription.setText(Html.fromHtml(description));
+            tvVenueName.setText(event.venueName());
+            tvCity.setText(event.cityName());
+
         }
     }
 
@@ -65,7 +85,9 @@ public class PoinzDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<SearchPhotoResult> call, @NonNull Response<SearchPhotoResult> response) {
 
-                PicassoHelper.getPhoto(poinzPoster, response.body().results().get(i).urls().regular());
+                if (response.body() != null && response.body().results().size() > 0) {
+                    PicassoHelper.getPhoto(poinzPoster, response.body().results().get(i).urls().regular());
+                }
 
             }
 

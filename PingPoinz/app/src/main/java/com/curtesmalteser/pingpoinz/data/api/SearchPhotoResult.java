@@ -1,6 +1,8 @@
 
 package com.curtesmalteser.pingpoinz.data.api;
 
+import android.support.annotation.Nullable;
+
 import java.util.List;
 
 import com.google.auto.value.AutoValue;
@@ -22,6 +24,7 @@ public abstract class SearchPhotoResult {
     public abstract Integer totalPages();
 
     @SerializedName("results")
+    @Nullable
     public abstract List<PhotoResult> results();
 
 }

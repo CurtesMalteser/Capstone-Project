@@ -115,11 +115,9 @@ public abstract class Event implements Parcelable {
     //public abstract Object tzId();
 
 
-    //@SerializedName("description")
-
-    // @Nullable
-
-    // public abstract Object description();
+    @SerializedName("description")
+    @Nullable
+    public abstract String description();
 
 
     @SerializedName("modified")
