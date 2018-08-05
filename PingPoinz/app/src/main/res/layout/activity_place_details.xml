@@ -61,7 +61,7 @@
                 tools:text="Lorem Ipsum..." />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tvVenueName"
+                android:id="@+id/tvRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -69,23 +69,23 @@
                 android:padding="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/tvCityLabel"
                 app:layout_constraintEnd_toStartOf="@+id/tvCityLabel"
-                app:layout_constraintStart_toEndOf="@+id/tvVenueLabel"
+                app:layout_constraintStart_toEndOf="@+id/tvRatingLabel"
                 app:layout_constraintTop_toBottomOf="@+id/tvCityLabel"
-                tools:text="VenueName" />
+                tools:text="3.9" />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tvVenueLabel"
+                android:id="@+id/tvRatingLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:padding="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvVenueName"
-                app:layout_constraintEnd_toStartOf="@+id/tvVenueName"
+                app:layout_constraintBottom_toTopOf="@+id/tvRating"
+                app:layout_constraintEnd_toStartOf="@+id/tvRating"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvVenueName"
-                android:text="Venue" />
+                app:layout_constraintTop_toBottomOf="@+id/tvRating"
+                android:text="Rating" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tvCity"
@@ -109,7 +109,7 @@
                 android:padding="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/tvCity"
                 app:layout_constraintEnd_toStartOf="@+id/tvCity"
-                app:layout_constraintStart_toEndOf="@+id/tvVenueName"
+                app:layout_constraintStart_toEndOf="@+id/tvRating"
                 app:layout_constraintTop_toBottomOf="@+id/tvCity"
                 android:text="City" />
 
@@ -122,7 +122,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/tvStart"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvVenueName" />
+                app:layout_constraintTop_toBottomOf="@+id/tvRating" />
 
             <TextView
                 android:id="@+id/tvStart"

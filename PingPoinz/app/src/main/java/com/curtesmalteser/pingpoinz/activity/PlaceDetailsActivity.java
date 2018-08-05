@@ -37,8 +37,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tvDescription)
     AppCompatTextView tvDescription;
 
-    @BindView(R.id.tvVenueName)
-    AppCompatTextView tvVenueName;
+    @BindView(R.id.tvRating)
+    AppCompatTextView tvRating;
 
     @BindView(R.id.tvCity)
     AppCompatTextView tvCity;
@@ -68,6 +68,11 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         mViewModel.getPlaceModel().observe(this, placesModel -> {
             mPlacesModel = placesModel;
             tvTitle.setText(mPlacesModel.placeName());
+            String rating = mPlacesModel.placeRating() != -1.0f ? String.valueOf(mPlacesModel.placeRating()) : "N/A";
+            tvRating.setText(rating);
+            tvStart.setText(mPlacesModel.placePriceLevel());
+            tvDescription.setText(mPlacesModel.placeAddress());
+            tvCity.setText(String.valueOf(mPlacesModel.placeType().size()));
             getPhotos(mPlacesModel.placeId());
         });
 
@@ -78,7 +83,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             }
 
             String photoAttributions = placesPhotosModel != null ? placesPhotosModel.placePhotoAttributions() : "N/A";
-            tvDescription.setText(photoAttributions);
+            tvEnd.setText(photoAttributions);
         });
     }
 

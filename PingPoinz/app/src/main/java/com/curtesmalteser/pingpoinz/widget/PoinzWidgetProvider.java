@@ -64,6 +64,7 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
         dao.getAllCurrencies().observeForever(eventDbModels -> {
                     for (int appWidgetId : appWidgetIds) {
 
+                        if(eventDbModels != null)
                         updateAppWidget(context, appWidgetManager, eventDbModels.get(0), appWidgetId);
                     }
                 }
