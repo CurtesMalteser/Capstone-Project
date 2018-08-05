@@ -311,7 +311,6 @@ public class MainActivity extends AppCompatActivity {
                                 String attributions = placeLikelihood.getPlace().getAttributions() != null ? placeLikelihood.getPlace().getAttributions().toString() : "Attributions Not Available";
                                 String address = placeLikelihood.getPlace().getAddress() != null ? placeLikelihood.getPlace().getAddress().toString() : "Address Not Available";
 
-                                placeLikelihood.getPlace().getPlaceTypes()
                                 placesModel = PlacesModel.builder()
                                         .setPlaceId(placeLikelihood.getPlace().getId())
                                         .setPlaceName(placeLikelihood.getPlace().getName().toString())
