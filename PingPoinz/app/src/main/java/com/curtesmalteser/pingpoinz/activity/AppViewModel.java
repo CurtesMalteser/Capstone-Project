@@ -11,6 +11,7 @@ import com.curtesmalteser.pingpoinz.data.api.EventfulApiClient;
 import com.curtesmalteser.pingpoinz.data.api.EventfulApiInterface;
 import com.curtesmalteser.pingpoinz.data.api.EventfulEventsModel;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
+import com.curtesmalteser.pingpoinz.data.maps.PlacesPhotosModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,8 @@ public class AppViewModel extends ViewModel {
     private MutableLiveData<List<Event>> eventsList;
     private MutableLiveData<List<PlacesModel>> placesList = new MutableLiveData<>();
     private MutableLiveData<PlacesModel> placeModel = new MutableLiveData<>();
+    private MutableLiveData<PlacesPhotosModel> photosModelLiveData = new MutableLiveData<>();
+
 
     public LiveData<List<Event>> getEvents() {
         if (eventsList == null) {
@@ -40,6 +43,14 @@ public class AppViewModel extends ViewModel {
             makeMoviesQuery();
         }
         return eventsList;
+    }
+
+    public void setPlacesPhotosModel(PlacesPhotosModel places) {
+        photosModelLiveData.postValue(places);
+    }
+
+    public LiveData<PlacesPhotosModel> getPlacesPhotosModel() {
+        return photosModelLiveData;
     }
 
     public void setPlaces(List<PlacesModel> places) {
