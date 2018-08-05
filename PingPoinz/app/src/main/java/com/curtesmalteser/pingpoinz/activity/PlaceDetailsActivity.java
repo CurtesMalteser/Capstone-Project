@@ -3,8 +3,9 @@ package com.curtesmalteser.pingpoinz.activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
@@ -15,9 +16,10 @@ import com.google.android.gms.location.places.PlacePhotoMetadataBuffer;
 import com.google.android.gms.location.places.PlacePhotoMetadataResponse;
 import com.google.android.gms.location.places.PlacePhotoResponse;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class PlaceDetailsActivity extends AppCompatActivity {
@@ -26,6 +28,26 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     private PlacesModel mPlacesModel;
     private GeoDataClient mGeoDataClient;
 
+    @BindView(R.id.poinzPoster)
+    AppCompatImageView poinzPoster;
+
+    @BindView(R.id.tvTitle)
+    AppCompatTextView tvTitle;
+
+    @BindView(R.id.tvDescription)
+    AppCompatTextView tvDescription;
+
+    @BindView(R.id.tvVenueName)
+    AppCompatTextView tvVenueName;
+
+    @BindView(R.id.tvCity)
+    AppCompatTextView tvCity;
+
+    @BindView(R.id.tvStart)
+    AppCompatTextView tvStart;
+
+    @BindView(R.id.tvEnd)
+    AppCompatTextView tvEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +57,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_place_details);
 
+        ButterKnife.bind(this);
+
         mGeoDataClient = Places.getGeoDataClient(this);
 
         if (getIntent().hasExtra(getResources().getString(R.string.string_extra_place))) {
@@ -43,48 +67,47 @@ public class PlaceDetailsActivity extends AppCompatActivity {
 
         mViewModel.getPlaceModel().observe(this, placesModel -> {
             mPlacesModel = placesModel;
-            Timber.tag("foo").d(mPlacesModel.placeName());
+            tvTitle.setText(mPlacesModel.placeName());
             getPhotos(mPlacesModel.placeId());
         });
 
         mViewModel.getPlacesPhotosModel().observe(this, placesPhotosModel -> {
+
+            if (placesPhotosModel != null) {
+                poinzPoster.setImageBitmap(placesPhotosModel.placePhoto());
+            }
+
             String photoAttributions = placesPhotosModel != null ? placesPhotosModel.placePhotoAttributions() : "N/A";
-            Timber.tag("foo").d(photoAttributions);
+            tvDescription.setText(photoAttributions);
         });
     }
 
-    // Request photos and metadata for the specified place.
     private void getPhotos(String placeId) {
         final Task<PlacePhotoMetadataResponse> photoMetadataResponse = mGeoDataClient.getPlacePhotos(placeId);
-        photoMetadataResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoMetadataResponse>() {
-            @Override
-            public void onComplete(@NonNull Task<PlacePhotoMetadataResponse> task) {
-                // Get the list of photos.
-                PlacePhotoMetadataResponse photos = task.getResult();
-                // Get the PlacePhotoMetadataBuffer (metadata for all of the photos).
-                PlacePhotoMetadataBuffer photoMetadataBuffer = photos.getPhotoMetadata();
-                // Get the first photo in the list.
+        photoMetadataResponse.addOnCompleteListener(task -> {
+            PlacePhotoMetadataResponse photos = task.getResult();
+            PlacePhotoMetadataBuffer photoMetadataBuffer = photos.getPhotoMetadata();
+            if (photoMetadataBuffer.getCount() > 0) {
                 PlacePhotoMetadata photoMetadata = photoMetadataBuffer.get(0);
-                // Get the attribution text.
-                CharSequence attribution = photoMetadata.getAttributions();
-                // Get a full-size bitmap for the photo.
+                CharSequence attribution = photoMetadata.getAttributions() != null ? photoMetadata.getAttributions() : "N/A";
                 Task<PlacePhotoResponse> photoResponse = mGeoDataClient.getPhoto(photoMetadata);
-                photoResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoResponse>() {
-                    @Override
-                    public void onComplete(@NonNull Task<PlacePhotoResponse> task) {
-                        PlacePhotoResponse photo = task.getResult();
-                        Bitmap bitmap = photo.getBitmap();
+                photoResponse.addOnCompleteListener(task1 -> {
+                    PlacePhotoResponse photo = task1.getResult();
+                    Bitmap bitmap = photo.getBitmap();
 
-                        mViewModel.setPlacesPhotosModel(
-                                PlacesPhotosModel.builder()
-                                        .setPlaceId(placeId)
-                                        .setPlacePhoto(bitmap)
-                                        .setPlacePhotoAttributions(attribution.toString())
-                                        .build()
-                        );
-                    }
+                    mViewModel.setPlacesPhotosModel(
+                            PlacesPhotosModel.builder()
+                                    .setPlaceId(placeId)
+                                    .setPlacePhoto(bitmap)
+                                    .setPlacePhotoAttributions(attribution.toString())
+                                    .build()
+                    );
                 });
+            } else {
+                // TODO: 05/08/2018 -> and a placeholder on else statement
+                Timber.tag("foo").d("no images for the place with id %s", placeId);
             }
+            photoMetadataBuffer.release();
         });
     }
 }
