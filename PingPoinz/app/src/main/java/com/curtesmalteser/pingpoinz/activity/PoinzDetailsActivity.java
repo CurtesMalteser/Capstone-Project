@@ -43,6 +43,12 @@ public class PoinzDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tvCity)
     AppCompatTextView tvCity;
 
+    @BindView(R.id.tvStart)
+    AppCompatTextView tvStart;
+
+    @BindView(R.id.tvEnd)
+    AppCompatTextView tvEnd;
+
     private Event event;
 
     @Override
@@ -61,6 +67,10 @@ public class PoinzDetailsActivity extends AppCompatActivity {
             tvVenueName.setText(event.venueName());
             tvCity.setText(event.cityName());
 
+            tvStart.setText(event.startTime());
+
+            String stopTime = event.stopTime() != null ? event.stopTime() : "N/A";
+            tvEnd.setText(stopTime);
         }
     }
 

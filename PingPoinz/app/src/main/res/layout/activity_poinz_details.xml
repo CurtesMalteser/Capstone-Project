@@ -57,37 +57,127 @@
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvEndLabel"
                 tools:text="Lorem Ipsum..." />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tvVenueName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:padding="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tvCityLabel"
+                app:layout_constraintEnd_toStartOf="@+id/tvCityLabel"
+                app:layout_constraintStart_toEndOf="@+id/tvVenueLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvCityLabel"
+                tools:text="VenueName" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tvVenueLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvVenueName"
+                app:layout_constraintEnd_toStartOf="@+id/tvVenueName"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
-                tools:text="Lorem Ipsum" />
+                app:layout_constraintTop_toBottomOf="@+id/tvVenueName"
+                android:text="Venue" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tvCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvCityLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="Lorem" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tvCityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvCity"
+                app:layout_constraintEnd_toStartOf="@+id/tvCity"
+                app:layout_constraintStart_toEndOf="@+id/tvVenueName"
+                app:layout_constraintTop_toBottomOf="@+id/tvCity"
+                android:text="City" />
+
+            <TextView
+                android:id="@+id/tvStartLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/string_start"
+                app:layout_constraintEnd_toStartOf="@+id/tvStart"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVenueName" />
+
+            <TextView
+                android:id="@+id/tvStart"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvStartLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvStartLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvStartLabel"
+                tools:text="2018-12-19T06:00:00Z" />
+
+            <TextView
+                android:id="@+id/tvEndLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/string_end"
+                app:layout_constraintEnd_toStartOf="@+id/tvEnd"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@+id/tvStartLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvStartLabel" />
+
+            <TextView
+                android:id="@+id/tvEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvEndLabel"
+                app:layout_constraintEnd_toEndOf="@+id/tvStart"
+                app:layout_constraintStart_toEndOf="@+id/tvEndLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvEndLabel"
+                tools:text="2018-12-19T06:00:00Z" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tvUnsplashAttribution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
-                tools:text="Lorem" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription"
+                android:text="Photo by Unsplash" />
+
 
 
         </android.support.constraint.ConstraintLayout>
+
+
+
 
 
     </ScrollView>
