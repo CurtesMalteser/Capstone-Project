@@ -1,20 +1,39 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#09C"
+    android:orientation="vertical"
     android:padding="@dimen/widget_margin">
 
+    <!-- todo -> Change the description -->
     <TextView
         android:id="@+id/appwidget_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:background="#09C"
+        android:contentDescription="@string/appwidget_text"
+        android:lines="2"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        tools:text="This is one event" />
+
+    <TextView
+        android:id="@+id/appwidget_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="8dp"
         android:background="#09C"
         android:contentDescription="@string/appwidget_text"
+        android:lines="1"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
         android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
-
-</RelativeLayout>
+        android:textSize="12sp"
+        tools:text="This is one event" />
+</LinearLayout>

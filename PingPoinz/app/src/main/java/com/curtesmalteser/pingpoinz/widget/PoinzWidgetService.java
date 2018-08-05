@@ -46,7 +46,7 @@ public class PoinzWidgetService extends IntentService {
                     int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, PoinzWidgetProvider.class));
                     //Now update all widgets
                     //PoinzWidgetProvider.updateEventsWidget(this, appWidgetManager, imgRes, appWidgetIds);
-                    PoinzWidgetProvider.updateEventsWidgets(this, appWidgetManager, eventDbModels.get(0).getTitle(), appWidgetIds);
+                    PoinzWidgetProvider.updateEventsWidgets(this, appWidgetManager, eventDbModels.get(0), appWidgetIds);
                 }
         );
     }

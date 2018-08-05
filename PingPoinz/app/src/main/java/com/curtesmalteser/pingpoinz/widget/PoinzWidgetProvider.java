@@ -10,6 +10,7 @@ import android.widget.RemoteViews;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
+import com.curtesmalteser.pingpoinz.data.db.EventDbModel;
 import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
 import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
 
@@ -18,8 +19,10 @@ import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
  */
 public class PoinzWidgetProvider extends AppWidgetProvider {
 
+    private PoinzWidgetService poinzWidgetService;
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                String title,
+                                EventDbModel eventDbModel,
                                 int appWidgetId) {
 
         CharSequence widgetText = context.getString(R.string.appwidget_text);
@@ -29,23 +32,27 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
         Intent i = new Intent(context, PoinzDetailsActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
 
-        views.setTextViewText(R.id.appwidget_text, title);
+        views.setTextViewText(R.id.appwidget_text, eventDbModel.getTitle());
         views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
+
+        views.setTextViewText(R.id.appwidget_date, eventDbModel.getStartTime());
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
-    public static void updateEventsWidgets(Context context, AppWidgetManager appWidgetManager, String title, int[] appWidgetIds) {
+    public static void updateEventsWidgets(Context context, AppWidgetManager appWidgetManager, EventDbModel eventDbModel, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, title, appWidgetId);
+            updateAppWidget(context, appWidgetManager, eventDbModel, appWidgetId);
         }
     }
 
     @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
-        PoinzWidgetService poinzWidgetService = new PoinzWidgetService();
-        poinzWidgetService.startActionGetEvents(context);
+        if (poinzWidgetService == null) {
+            poinzWidgetService = new PoinzWidgetService();
+            poinzWidgetService.startActionGetEvents(context);
+        }
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
     }
 
@@ -57,13 +64,15 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
         dao.getAllCurrencies().observeForever(eventDbModels -> {
                     for (int appWidgetId : appWidgetIds) {
 
-                        updateAppWidget(context, appWidgetManager, eventDbModels.get(0).getTitle(), appWidgetId);
+                        updateAppWidget(context, appWidgetManager, eventDbModels.get(0), appWidgetId);
                     }
                 }
         );
 
-        PoinzWidgetService poinzWidgetService = new PoinzWidgetService();
-        poinzWidgetService.startActionGetEvents(context);
+        if (poinzWidgetService == null) {
+            poinzWidgetService = new PoinzWidgetService();
+            poinzWidgetService.startActionGetEvents(context);
+        }
 
     }
 
