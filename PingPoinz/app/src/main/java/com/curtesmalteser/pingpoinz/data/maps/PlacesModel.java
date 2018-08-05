@@ -1,5 +1,7 @@
 package com.curtesmalteser.pingpoinz.data.maps;
 
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.auto.value.AutoValue;
 
@@ -9,7 +11,7 @@ import java.util.List;
  * Created by António "Curtes Malteser" Bastião on 22/07/2018.
  */
 @AutoValue
-public abstract class PlacesModel {
+public abstract class PlacesModel implements Parcelable {
 
     public static Builder builder() {
         return new AutoValue_PlacesModel.Builder();

@@ -32,6 +32,7 @@ public class AppViewModel extends ViewModel {
 
     private MutableLiveData<List<Event>> eventsList;
     private MutableLiveData<List<PlacesModel>> placesList = new MutableLiveData<>();
+    private MutableLiveData<PlacesModel> placeModel = new MutableLiveData<>();
 
     public LiveData<List<Event>> getEvents() {
         if (eventsList == null) {
@@ -47,6 +48,14 @@ public class AppViewModel extends ViewModel {
 
     public LiveData<List<PlacesModel>> getPlaces() {
         return placesList;
+    }
+
+    public void setPlaceModel(PlacesModel place) {
+        placeModel.postValue(place);
+    }
+
+    public LiveData<PlacesModel> getPlaceModel() {
+        return placeModel;
     }
 
     private void makeMoviesQuery() {

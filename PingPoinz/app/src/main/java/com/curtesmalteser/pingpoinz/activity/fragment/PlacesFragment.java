@@ -100,10 +100,9 @@ public class PlacesFragment extends Fragment
     }
 
     @Override
-    public void onListItemClick(PlacesModel moviesModel) {
-        Toast.makeText(getActivity(), moviesModel.placeName(), Toast.LENGTH_SHORT).show();
+    public void onListItemClick(PlacesModel placesModel) {
         Intent i = new Intent(getActivity(), PlaceDetailsActivity.class);
-        // TODO: 05/08/2018 -> Pass object as extra 
+        i.putExtra(getString(R.string.string_extra_place), placesModel);
         startActivity(i);
 
     }
