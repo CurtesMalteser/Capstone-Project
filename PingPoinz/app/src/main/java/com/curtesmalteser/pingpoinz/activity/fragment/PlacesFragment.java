@@ -2,6 +2,7 @@ package com.curtesmalteser.pingpoinz.activity.fragment;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.AppViewModel;
+import com.curtesmalteser.pingpoinz.activity.PlaceDetailsActivity;
 import com.curtesmalteser.pingpoinz.activity.adapter.PlacesAdapter;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
 import com.curtesmalteser.pingpoinz.data.maps.PriceLevel;
@@ -100,6 +102,10 @@ public class PlacesFragment extends Fragment
     @Override
     public void onListItemClick(PlacesModel moviesModel) {
         Toast.makeText(getActivity(), moviesModel.placeName(), Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getActivity(), PlaceDetailsActivity.class);
+        // TODO: 05/08/2018 -> Pass object as extra 
+        startActivity(i);
+
     }
 }
 
