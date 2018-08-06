@@ -49,7 +49,7 @@ public class StoreEventsAsync extends AsyncTask<Object, Void, Void> {
             ));
         }
 
-        mPoinzDao.addCurrencies(mEventDbModel);
+        mPoinzDao.addEvents(mEventDbModel);
 
         return null;
     }

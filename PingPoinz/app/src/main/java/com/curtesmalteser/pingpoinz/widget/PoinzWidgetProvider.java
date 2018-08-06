@@ -59,7 +59,7 @@ public class PoinzWidgetProvider extends AppWidgetProvider {
         PoinzWidgetSync.scheduleFirebaseJobDispatcher(context);
 
         PoinzDao dao = PoinzDatabase.getDatabase(context).poinzDao();
-        dao.getAllCurrencies().observeForever(eventDbModels -> {
+        dao.getAllEvents().observeForever(eventDbModels -> {
                     for (int appWidgetId : appWidgetIds) {
 
                         if (eventDbModels != null)

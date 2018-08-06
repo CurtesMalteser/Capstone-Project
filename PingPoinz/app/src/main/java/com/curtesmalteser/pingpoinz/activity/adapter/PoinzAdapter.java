@@ -31,11 +31,9 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
     final private ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
-        //  void onListItemClick(ComposedPlacesModel moviesModel);
         void onListItemClick(Event event);
     }
 
-    //public PoinzPlacesAdapter(Context context, ArrayList<ComposedPlacesModel> moviesModelArrayList,
     public PoinzAdapter(Context context, ArrayList<Event> events,
                         ListItemClickListener listener) {
         this.mContext = context;
@@ -98,9 +96,8 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
-            // ComposedPlacesModel moviesModelList = mPlacesList.get(clickedPosition);
-            Event moviesModelList = mEvents.get(clickedPosition);
-            mOnClickListener.onListItemClick(moviesModelList);
+            Event eventModelList = mEvents.get(clickedPosition);
+            mOnClickListener.onListItemClick(eventModelList);
         }
     }
 }

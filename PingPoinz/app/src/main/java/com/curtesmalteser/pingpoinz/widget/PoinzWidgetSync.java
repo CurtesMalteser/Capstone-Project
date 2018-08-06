@@ -23,27 +23,26 @@ public class PoinzWidgetSync {
 
     private static final int SYNC_INTERVAL_HOURS = 3;
 
-    //private static final int SYNC_INTERVAL_HOURS = 1;
     private static final int SYNC_INTERVAL_SECONDS = (int) TimeUnit.HOURS.toSeconds(SYNC_INTERVAL_HOURS);
-    //private static final int SYNC_INTERVAL_SECONDS = (int) TimeUnit.MINUTES.toSeconds(SYNC_INTERVAL_HOURS);
     private static final int SYNC_FLEXTIME_SECONDS = SYNC_INTERVAL_SECONDS / 3;
 
     private static boolean sInitialized;
 
-    private static final String CURRENCIES_SYNC_TAG = "currencies_sync";
+    private static final String WIDGET_SYNC_TAG = "events_widget_sync";
 
     private static FirebaseJobDispatcher mDispatcher;
 
     public static void scheduleFirebaseJobDispatcher(@NonNull final Context context) {
 
-        if (sInitialized) return;
 
         Driver driver = new GooglePlayDriver(context);
         mDispatcher = new FirebaseJobDispatcher(driver);
 
-        Job syncCurrenciesJob = mDispatcher.newJobBuilder()
+        if (sInitialized) return;
+
+        Job syncPlacesQidgetJob = mDispatcher.newJobBuilder()
                 .setService(PoinzWidgetService.class)
-                .setTag(CURRENCIES_SYNC_TAG)
+                .setTag(WIDGET_SYNC_TAG)
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
                 .setTrigger(
@@ -54,12 +53,12 @@ public class PoinzWidgetSync {
                 ).setReplaceCurrent(true)
                 .build();
 
-        mDispatcher.schedule(syncCurrenciesJob);
+        mDispatcher.schedule(syncPlacesQidgetJob);
 
         sInitialized = true;
     }
 
     public static void cancelDispatcher(){
-        mDispatcher.cancel(CURRENCIES_SYNC_TAG);
+        mDispatcher.cancel(WIDGET_SYNC_TAG);
     }
 }

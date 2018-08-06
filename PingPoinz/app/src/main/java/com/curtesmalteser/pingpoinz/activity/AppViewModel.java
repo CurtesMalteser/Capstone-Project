@@ -37,13 +37,6 @@ public class AppViewModel extends ViewModel {
     private MutableLiveData<PlacesPhotosModel> photosModelLiveData = new MutableLiveData<>();
 
 
-    public LiveData<List<Event>> getEvents() {
-        if (eventsList == null) {
-            eventsList = new MutableLiveData<>();
-            makeMoviesQuery();
-        }
-        return eventsList;
-    }
 
     public void setPlacesPhotosModel(PlacesPhotosModel places) {
         photosModelLiveData.postValue(places);
@@ -69,7 +62,16 @@ public class AppViewModel extends ViewModel {
         return placeModel;
     }
 
-    private void makeMoviesQuery() {
+    public LiveData<List<Event>> getEvents() {
+        if (eventsList == null) {
+            eventsList = new MutableLiveData<>();
+            makeEventsQuery();
+        }
+        return eventsList;
+    }
+
+
+    private void makeEventsQuery() {
         EventfulApiInterface apiInterface = EventfulApiClient.getClient().create(EventfulApiInterface.class);
         Call<EventfulEventsModel> call;
 

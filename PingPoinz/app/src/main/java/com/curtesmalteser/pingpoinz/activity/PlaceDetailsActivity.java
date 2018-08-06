@@ -72,7 +72,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             tvRating.setText(rating);
             tvStart.setText(mPlacesModel.placePriceLevel());
             tvDescription.setText(mPlacesModel.placeAddress());
-            tvCity.setText(String.valueOf(mPlacesModel.placeType().size()));
+            tvCity.setText("Don't implemented");
             getPhotos(mPlacesModel.placeId());
         });
 
@@ -110,7 +110,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                 });
             } else {
                 // TODO: 05/08/2018 -> and a placeholder on else statement
-                Timber.tag("foo").d("no images for the place with id %s", placeId);
+                Timber.d("No images for the place with id %s", placeId);
             }
             photoMetadataBuffer.release();
         });

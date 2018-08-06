@@ -30,15 +30,13 @@ public class PlacesAdapter
     final private ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
-        //  void onListItemClick(ComposedPlacesModel moviesModel);
-        void onListItemClick(PlacesModel moviesModel);
+        void onListItemClick(PlacesModel placesModel);
     }
 
-    //public PoinzPlacesAdapter(Context context, ArrayList<ComposedPlacesModel> moviesModelArrayList,
-    public PlacesAdapter(Context context, ArrayList<PlacesModel> moviesModelArrayList,
+    public PlacesAdapter(Context context, ArrayList<PlacesModel> placesModelArrayList,
                          ListItemClickListener listener) {
         this.mContext = context;
-        this.mPlacesList = moviesModelArrayList;
+        this.mPlacesList = placesModelArrayList;
         this.mOnClickListener = listener;
     }
 
@@ -94,9 +92,8 @@ public class PlacesAdapter
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
-            // ComposedPlacesModel moviesModelList = mPlacesList.get(clickedPosition);
-            PlacesModel moviesModelList = mPlacesList.get(clickedPosition);
-            mOnClickListener.onListItemClick(moviesModelList);
+            PlacesModel placesModelList = mPlacesList.get(clickedPosition);
+            mOnClickListener.onListItemClick(placesModelList);
         }
     }
 }

@@ -30,7 +30,7 @@ public class PoinzWidgetService extends JobService {
 
     private void handleGetEvents() {
         PoinzDao dao = PoinzDatabase.getDatabase(mContext).poinzDao();
-        dao.getAllCurrencies().observeForever(eventDbModels -> {
+        dao.getAllEvents().observeForever(eventDbModels -> {
                     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
                     int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, PoinzWidgetProvider.class));
                     PoinzWidgetProvider.updateEventsWidgets(this, appWidgetManager, eventDbModels.get(0), appWidgetIds);

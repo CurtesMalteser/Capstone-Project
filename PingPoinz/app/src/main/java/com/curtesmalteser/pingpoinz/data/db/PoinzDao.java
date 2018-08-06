@@ -19,30 +19,10 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface PoinzDao {
     @Insert(onConflict = REPLACE)
-    void addCurrencies(ArrayList<EventDbModel> currenciesModel);
-
-    @Update(onConflict = REPLACE)
-    int updateCurrencies(EventDbModel... currenciesModel);
+    void addEvents(ArrayList<EventDbModel> eventsModel);
 
     @Query("SELECT * FROM " + EventDbModel.TABLE_NAME)
-    LiveData<List<EventDbModel>> getAllCurrencies();
-
-    @Query("SELECT * FROM events_table WHERE event_id LIKE :eventId")
-    EventDbModel selectSingleCurrency(String eventId);
-
-    @Delete
-    int deleteCurrencies(EventDbModel... currenciesModel);
+    LiveData<List<EventDbModel>> getAllEvents();
 
     @Query("DELETE FROM " + EventDbModel.TABLE_NAME)
-    int deleteEventsTable();
-
-    //***************** Methods to use with ContentProvider *****************//
-    // This methods returns a Cursor to use on CurrenciesContentProvider and select all currencies
-    @Query("SELECT * FROM " + EventDbModel.TABLE_NAME)
-    Cursor selectAll();
-
-    // Select a cheese by the ID
-    // ATTENTION: it has to to take a long id because that's uri parse pass
-    @Query("SELECT * FROM " + EventDbModel.TABLE_NAME + " WHERE " + EventDbModel.COLUMN_ID + " = :id")
-    Cursor selectById(long id);
-}
+    int deleteEventsTable();}
