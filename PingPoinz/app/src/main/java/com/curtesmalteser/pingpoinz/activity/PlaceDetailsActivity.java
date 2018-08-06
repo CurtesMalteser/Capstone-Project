@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Html;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
@@ -31,23 +32,20 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     @BindView(R.id.poinzPoster)
     AppCompatImageView poinzPoster;
 
+    @BindView(R.id.tvAttributions)
+    AppCompatTextView tvAttributions;
+
     @BindView(R.id.tvTitle)
     AppCompatTextView tvTitle;
 
-    @BindView(R.id.tvDescription)
-    AppCompatTextView tvDescription;
+    @BindView(R.id.tvAddress)
+    AppCompatTextView tvAddress;
 
     @BindView(R.id.tvRating)
     AppCompatTextView tvRating;
 
-    @BindView(R.id.tvCity)
-    AppCompatTextView tvCity;
-
-    @BindView(R.id.tvStart)
-    AppCompatTextView tvStart;
-
-    @BindView(R.id.tvEnd)
-    AppCompatTextView tvEnd;
+    @BindView(R.id.tvPriceLevel)
+    AppCompatTextView tvPriceLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +68,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             tvTitle.setText(mPlacesModel.placeName());
             String rating = mPlacesModel.placeRating() != -1.0f ? String.valueOf(mPlacesModel.placeRating()) : "N/A";
             tvRating.setText(rating);
-            tvStart.setText(mPlacesModel.placePriceLevel());
-            tvDescription.setText(mPlacesModel.placeAddress());
-            tvCity.setText("Don't implemented");
+            tvPriceLevel.setText(mPlacesModel.placePriceLevel());
+            tvAddress.setText(mPlacesModel.placeAddress());
             getPhotos(mPlacesModel.placeId());
         });
 
@@ -80,10 +77,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
 
             if (placesPhotosModel != null) {
                 poinzPoster.setImageBitmap(placesPhotosModel.placePhoto());
+                tvAttributions.setText(Html.fromHtml(placesPhotosModel.placePhotoAttributions()));
             }
-
-            String photoAttributions = placesPhotosModel != null ? placesPhotosModel.placePhotoAttributions() : "N/A";
-            tvEnd.setText(photoAttributions);
         });
     }
 

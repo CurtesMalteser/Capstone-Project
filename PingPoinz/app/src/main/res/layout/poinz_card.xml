@@ -10,6 +10,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:lines="1"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -24,12 +25,13 @@
         tools:text="Schloss Leuk" />
 
     <TextView
-        android:id="@+id/tvCategoryLabel"
+        android:id="@+id/tvCityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/string_category"
+        android:text="@string/city"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvStart"
         app:layout_constraintEnd_toEndOf="@+id/tvTitle"
         app:layout_constraintStart_toEndOf="@+id/tvStart"
@@ -40,10 +42,10 @@
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_category"
+        tools:text="Mars is a planet"
         app:layout_constraintBottom_toTopOf="@+id/tvEnd"
-        app:layout_constraintEnd_toStartOf="@+id/tvCategoryLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvCategoryLabel"
+        app:layout_constraintEnd_toStartOf="@+id/tvCityLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvCityLabel"
         app:layout_constraintTop_toBottomOf="parent" />
 
 
@@ -53,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/string_start"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tvTitle"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
@@ -68,30 +71,24 @@
         tools:text="2018-12-19T06:00:00Z" />
 
     <TextView
-        android:id="@+id/tvEndLabel"
+        android:id="@+id/tvAddressLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textStyle="bold"
         android:text="@string/string_end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvStartLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvStartLabel"
+        app:layout_constraintStart_toStartOf="@+id/tvStartLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvStartLabel" />
 
     <TextView
         android:id="@+id/tvEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvEndLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvEndLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvEndLabel"
+        app:layout_constraintBottom_toTopOf="@+id/tvAddressLabel"
+        app:layout_constraintStart_toStartOf="@+id/tvStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddressLabel"
         tools:text="2018-12-19T06:00:00Z" />
 
 </android.support.constraint.ConstraintLayout>

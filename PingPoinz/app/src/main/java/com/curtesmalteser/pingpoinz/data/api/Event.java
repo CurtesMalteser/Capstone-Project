@@ -15,11 +15,6 @@ public abstract class Event implements Parcelable {
         return new AutoValue_Event.GsonTypeAdapter(gson);
     }
 
-    // Todo -> Check "Object" and if a model is needed
-    //@SerializedName("watching_count")
-    //@Nullable
-    //public abstract Object watchingCount();
-
     @SerializedName("olson_path")
     @Nullable
     public abstract String olsonPath();
@@ -41,18 +36,6 @@ public abstract class Event implements Parcelable {
     @Nullable
     public abstract String postalCode();
 
-
-    // @SerializedName("going_count")
-
-    // @Nullable
-
-    //public abstract Object goingCount();
-
-    /*
-     * A false value (0) indicates that the start_time and stop_time are as listed.
-     * If the all_day flag is set to 1 (all day) or 2 (no time specified),
-     * then the tim
-     * e should be omitted from start_time and stop_time.*/
     @SerializedName("all_day")
     @Nullable
     public abstract Integer allDay();
@@ -64,13 +47,6 @@ public abstract class Event implements Parcelable {
     @SerializedName("longitude")
     @Nullable
     public abstract Float longitude();
-
-    // @SerializedName("groups")
-
-    // @Nullable
-
-    // public abstract Object groups();
-
 
     @SerializedName("url")
     @Nullable
@@ -108,13 +84,6 @@ public abstract class Event implements Parcelable {
     @Nullable
     public abstract String startTime();
 
-    //@SerializedName("tz_id")
-//
-    // @Nullable
-
-    //public abstract Object tzId();
-
-
     @SerializedName("description")
     @Nullable
     public abstract String description();
@@ -128,12 +97,6 @@ public abstract class Event implements Parcelable {
     @Nullable
     public abstract Boolean venueDisplay();
 
-    //  @SerializedName("tz_country")
-
-    // @Nullable
-
-    // public abstract Object tzCountry();
-
     @SerializedName("performers")
     @Nullable
     public abstract Performers performers();
@@ -142,21 +105,9 @@ public abstract class Event implements Parcelable {
     @Nullable
     public abstract String title();
 
-    // @SerializedName("venue_address")
-    // @Nullable
-    //public abstract Object venueAddress();
-
     @SerializedName("geocode_type")
     @Nullable
     public abstract String geocodeType();
-
-    //@SerializedName("tz_olson_path")
-    //@Nullable
-    //public abstract Object tzOlsonPath();
-
-    // @SerializedName("recur_string")
-    //@Nullable
-    // public abstract Object recurString();
 
     @SerializedName("calendars")
     @Nullable
@@ -165,10 +116,6 @@ public abstract class Event implements Parcelable {
     @SerializedName("owner")
     @Nullable
     public abstract String owner();
-
-    // @SerializedName("going")
-    // @Nullable
-    //public abstract Object going();
 
     @SerializedName("country_abbr2")
     @Nullable
@@ -185,10 +132,6 @@ public abstract class Event implements Parcelable {
     @SerializedName("venue_id")
     @Nullable
     public abstract String venueId();
-
-    //  @SerializedName("tz_city")
-    // @Nullable
-    //  public abstract Object tzCity();
 
     @SerializedName("stop_time")
     @Nullable

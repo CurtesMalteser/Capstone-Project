@@ -6,58 +6,96 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_for_testing">
 
-    <ImageView
-        android:id="@+id/ivCardPlacePhoto"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:lines="1"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@drawable/ic_map_white_24dp"/>
-
-
-    <TextView
-        android:id="@+id/tvPointName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvPointAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivCardPlacePhoto"
-        app:layout_constraintTop_toTopOf="@+id/ivCardPlacePhoto"
-        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_chainStyle="spread"
         tools:text="Schloss Leuk" />
 
-    <TextView
-        android:id="@+id/tvPointAddress"
-        android:layout_width="0dp"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvPriceLevelLabel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivCardPlacePhoto"
-        app:layout_constraintEnd_toEndOf="@+id/tvPointName"
-        app:layout_constraintStart_toStartOf="@+id/tvPointName"
-        app:layout_constraintTop_toBottomOf="@+id/tvPointName"
-        tools:text="Rathauspl. 5, 3953 Leuk" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        android:text="@string/price_level"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvRating"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceLevel"
+        app:layout_constraintStart_toEndOf="@+id/tvRating"
+        app:layout_constraintTop_toBottomOf="@+id/tvRating" />
 
-    <TextView
-        android:id="@+id/tvAttributions"
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvPriceLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tvPriceLevelLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvPriceLevelLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceLevelLabel"
+        tools:text="4" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvRatingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        android:text="@string/rating"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tvRating"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvRatingLabel"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceLevelLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvRatingLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvRatingLabel"
+        tools:text="4.3" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvPointName"
-        app:layout_constraintStart_toStartOf="@+id/tvPointName"
-        tools:text="Attributions" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRatingLabel"
+        tools:text="Address" />
 
 </android.support.constraint.ConstraintLayout>

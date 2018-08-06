@@ -31,9 +31,11 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
     final private ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
+        //  void onListItemClick(ComposedPlacesModel moviesModel);
         void onListItemClick(Event event);
     }
 
+    //public PoinzPlacesAdapter(Context context, ArrayList<ComposedPlacesModel> moviesModelArrayList,
     public PoinzAdapter(Context context, ArrayList<Event> events,
                         ListItemClickListener listener) {
         this.mContext = context;
@@ -90,7 +92,8 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
             tvTitle.setText(event.title());
             tvCategory.setText(event.cityName());
             tvStart.setText(event.startTime());
-            tvEnd.setText(event.startTime());
+            String stopTime = event.stopTime() != null ? event.stopTime() : "N/A";
+            tvEnd.setText(stopTime);
         }
 
         @Override

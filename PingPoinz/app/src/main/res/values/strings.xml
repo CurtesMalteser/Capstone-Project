@@ -57,12 +57,19 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="string_category">Category</string>
-    <string name="string_start">Start</string>
-    <string name="string_end">End</string>
+    <string name="string_start">Start:</string>
+    <string name="string_end">End:</string>
     <string name="string_extra">event_as_extra</string>
     <string name="string_extra_place">place_as_extra</string>
     <string name="logo_powered_by_google">Logo powered by Google</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="price_level">Price Level:</string>
+    <string name="rating">Rating:</string>
+    <string name="address">Address:</string>
+    <string name="attributions">Attributions:</string>
+    <string name="city">City:</string>
+    <string name="photo_by_unsplash">Photo by Unsplash</string>
+    <string name="venue">Venue:</string>
 
 </resources>

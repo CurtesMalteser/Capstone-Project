@@ -2,6 +2,7 @@ package com.curtesmalteser.pingpoinz.activity.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,20 +62,19 @@ public class PlacesAdapter
     public class PoinzPlacesViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
+        @BindView(R.id.tvTitle)
+        AppCompatTextView tvTitle;
 
-        @BindView(R.id.ivCardPlacePhoto)
-        ImageView ivCardPlacePhoto;
+        @BindView(R.id.tvRating)
+        AppCompatTextView tvRating;
 
-        @BindView(R.id.tvPointName)
-        TextView tvPointName;
+        @BindView(R.id.tvPriceLevel)
+        AppCompatTextView tvPriceLevel;
 
-        @BindView(R.id.tvPointAddress)
-        TextView tvPointAddress;
+        @BindView(R.id.tvAddress)
+        AppCompatTextView tvAddress;
 
-        @BindView(R.id.tvAttributions)
-        TextView tvAttributions;
-
-        public PoinzPlacesViewHolder(View itemView) {
+        PoinzPlacesViewHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
@@ -83,10 +83,12 @@ public class PlacesAdapter
         }
 
         void bind(int listIndex) {
-            // final ComposedPlacesModel model = mPlacesList.get(listIndex);
             final PlacesModel model = mPlacesList.get(listIndex);
-            tvPointName.setText(model.placeName());
-            tvPointAddress.setText(model.placeAddress());
+            tvTitle.setText(model.placeName());
+            String rating = model.placeRating() != -1.0 ? String.valueOf(model.placeRating()) : "N/A";
+            tvRating.setText(rating);
+            tvPriceLevel.setText(model.placePriceLevel());
+            tvAddress.setText(model.placeAddress());
         }
 
         @Override
