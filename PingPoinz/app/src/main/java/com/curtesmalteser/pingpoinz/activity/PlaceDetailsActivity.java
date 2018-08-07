@@ -3,10 +3,12 @@ package com.curtesmalteser.pingpoinz.activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
+import android.view.MenuItem;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
@@ -54,8 +56,10 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
         setContentView(R.layout.activity_place_details);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.bind(this);
+
 
         mGeoDataClient = Places.getGeoDataClient(this);
 
@@ -109,5 +113,15 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             }
             photoMetadataBuffer.release();
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

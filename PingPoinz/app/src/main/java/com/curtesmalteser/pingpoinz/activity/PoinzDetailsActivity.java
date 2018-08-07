@@ -2,10 +2,12 @@ package com.curtesmalteser.pingpoinz.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
+import android.view.MenuItem;
 
 import com.curtesmalteser.pingpoinz.BuildConfig;
 import com.curtesmalteser.pingpoinz.R;
@@ -55,8 +57,11 @@ public class PoinzDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poinz_details);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.bind(this);
+
+
 
         if (getIntent().hasExtra(getResources().getString(R.string.string_extra))) {
             event = getIntent().getParcelableExtra(getResources().getString(R.string.string_extra));
@@ -108,6 +113,16 @@ public class PoinzDetailsActivity extends AppCompatActivity {
         });
        /* } else
             Toast.makeText(getContext(), R.string.check_internet_connection, Toast.LENGTH_SHORT).show();*/
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

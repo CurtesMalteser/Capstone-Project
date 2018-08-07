@@ -26,9 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MapActivity" />
-        <activity android:name=".activity.PlaceDetailsActivity" />
-        <activity android:name=".activity.PoinzDetailsActivity" />
+        <activity android:name=".activity.MapActivity"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.PlaceDetailsActivity"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.PoinzDetailsActivity"
+            android:parentActivityName=".activity.MainActivity"/>
 
         <receiver android:name=".widget.PoinzWidgetProvider">
             <intent-filter>
