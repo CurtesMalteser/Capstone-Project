@@ -15,14 +15,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.curtesmalteser.pingpoinz.R;
-import com.curtesmalteser.pingpoinz.data.maps.LocationUpdatesManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.Task;
@@ -35,7 +33,6 @@ public class MapActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private CameraPosition mCameraPosition;
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
@@ -47,12 +44,7 @@ public class MapActivity extends AppCompatActivity
 
     private Location mLastKnownLocation;
 
-    // Keys for storing activity state.
-    private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-
-    @BindView(R.id.btnShowCurrentPlace)
-    AppCompatButton btnShowCurrentPlace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +52,14 @@ public class MapActivity extends AppCompatActivity
         setContentView(R.layout.activity_map);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
 
         ButterKnife.bind(this);
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -80,7 +69,6 @@ public class MapActivity extends AppCompatActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (mMap != null) {
-            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
             super.onSaveInstanceState(outState);
         }
