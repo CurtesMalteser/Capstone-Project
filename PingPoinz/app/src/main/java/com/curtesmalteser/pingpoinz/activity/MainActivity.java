@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                             likelyPlaces.release();
 
                         } else {
-                            Timber.e(task.getException().getMessage(), "Exception: %s");
+                            Timber.e(task.getException().toString());
                         }
                     });
         } else {

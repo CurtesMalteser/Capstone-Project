@@ -1,5 +1,7 @@
 package com.curtesmalteser.pingpoinz.data.api;
 
+import android.support.annotation.NonNull;
+
 import com.curtesmalteser.pingpoinz.BuildConfig;
 import com.google.gson.GsonBuilder;
 
@@ -27,18 +29,15 @@ public class UnsplashClient {
     public static Retrofit getClient() {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
-                Request original = chain.request();
+        httpClient.addInterceptor(chain -> {
+            Request original = chain.request();
 
-                Request request = original.newBuilder()
-                        .header("Accept-Version", "v1")
-                        .method(original.method(), original.body())
-                        .build();
+            Request request = original.newBuilder()
+                    .header("Accept-Version", "v1")
+                    .method(original.method(), original.body())
+                    .build();
 
-                return chain.proceed(request);
-            }
+            return chain.proceed(request);
         });
 
 
