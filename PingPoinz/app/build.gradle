@@ -1,6 +1,18 @@
 apply plugin: 'com.android.application'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        installRelease {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.curtesmalteser.pingpoinz"
@@ -16,6 +28,7 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.installRelease
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -56,24 +69,29 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
     // Firebase && GeoFire
-    //implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    //implementation "com.google.firebase:firebase-database:$firebaseVersion"
-    //implementation "com.firebase:geofire-android:$geofireVersion"
 
+    //implementation "com.google.firebase:firebase-core:$firebaseVersion"
+
+    //implementation "com.google.firebase:firebase-database:$firebaseVersion"
+
+    //implementation "com.firebase:geofire-android:$geofireVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     // Dagger core
+
     /* annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-     implementation "com.google.dagger:dagger:$daggerVersion"*/
+         implementation "com.google.dagger:dagger:$daggerVersion"*/
 
     // Dagger Android
+
     /* annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-     implementation "com.google.dagger:dagger-android-support:$daggerVersion"*/
+         implementation "com.google.dagger:dagger-android-support:$daggerVersion"*/
 
     // if you are not using support library, include this instead
+
     // implementation "com.google.dagger:dagger-android:$daggerVersion"
 
     // ButterKnife
@@ -81,7 +99,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     // ReactiveX
+
     // implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
     // implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     // Timber
@@ -107,17 +127,12 @@ dependencies {
     implementation 'com.ryanharter.auto.value:auto-value-gson-annotations:0.8.0'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.8.0'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.6'
-
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
-
     implementation "com.squareup.picasso:picasso:$picassoVersion"
-
-
     implementation 'com.airbnb.android:lottie:2.5.1'
-
     implementation 'com.facebook.stetho:stetho:1.5.0'
 
     // Firebase JobDispatcher

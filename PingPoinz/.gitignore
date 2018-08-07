@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /keystore.properties
+/app/PingPoinzKey.jks
 /local.properties
 /gradle.properties
 /.idea/libraries
