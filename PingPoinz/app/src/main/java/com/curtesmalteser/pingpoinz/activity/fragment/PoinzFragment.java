@@ -1,12 +1,8 @@
 package com.curtesmalteser.pingpoinz.activity.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +16,6 @@ import com.curtesmalteser.pingpoinz.activity.AppViewModel;
 import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzAdapter;
 import com.curtesmalteser.pingpoinz.data.api.Event;
-import com.curtesmalteser.pingpoinz.data.db.EventDbModel;
-import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
 import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
 import com.curtesmalteser.pingpoinz.data.db.StoreEventsAsync;
 
@@ -44,9 +38,7 @@ public class PoinzFragment extends Fragment
 
     private ArrayList<Event> eventsModel = new ArrayList<>();
 
-    // Room variables
     private PoinzDatabase mDb;
-    private PoinzDao mPoinzDao;
 
     @BindView(R.id.animationLoader)
     LottieAnimationView animationLoader;
@@ -65,8 +57,6 @@ public class PoinzFragment extends Fragment
 
         // Instantiate Room DB
         mDb = PoinzDatabase.getDatabase(getActivity());
-        mPoinzDao = mDb.poinzDao();
-
     }
 
     @Override

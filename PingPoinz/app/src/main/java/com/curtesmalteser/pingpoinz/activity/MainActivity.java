@@ -37,6 +37,7 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
     private PlacesModel placesModel;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+    private Bundle mFirebaseBundle;
+
 
     // End of variables to access position since, the Google Maps API requires ActivityContext
 
@@ -97,15 +101,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
 
+        mFirebaseBundle = new Bundle();
+
+
+
+
         btnOpenMapsActivity.bringToFront();
         btnOpenMapsActivity.setOnClickListener(l -> {
             Intent i = new Intent(this, MapActivity.class);
             startActivity(i);
+            firebaseAnalyticeLog(mFirebaseBundle, FirebaseAnalytics.Param.ITEM_NAME, "MapActivity");
         });
 
 
@@ -173,12 +184,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 for (Location location : locationResult.getLocations()) {
-                    // Update UI with location data
-                    // ...
+                    firebaseAnalyticeLog(mFirebaseBundle, FirebaseAnalytics.Param.LOCATION, location.toString());
 
                     // TODO: 04/08/2018 -> annotation one.a) 
                     mKnownLocation = location;
-                    Timber.d("AJDB -> lat: " + location.getLatitude() + " long: " + location.getLongitude());
 
                     // TODO: 04/08/2018 -> LiveData to update location and showCurrentPlace(); annotation Two
                 }
@@ -196,6 +205,11 @@ public class MainActivity extends AppCompatActivity {
 
         // ************* EndMaps Utils *****************************//
 
+    }
+
+    private void firebaseAnalyticeLog(Bundle bundle, String param, String event) {
+        mFirebaseBundle.putString(param, event);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     @Override
