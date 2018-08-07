@@ -40,6 +40,7 @@ import com.google.android.gms.tasks.Task;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class MapActivity extends AppCompatActivity
         implements OnMapReadyCallback {
@@ -413,7 +414,7 @@ public class MapActivity extends AppCompatActivity
                 getLocationPermission();
             }
         } catch (SecurityException e) {
-            Log.e("Exception: %s", e.getMessage());
+            Timber.e(e);
         }
     }
 
