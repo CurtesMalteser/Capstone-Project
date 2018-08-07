@@ -71,5 +71,7 @@
     <string name="city">City:</string>
     <string name="photo_by_unsplash">Photo by Unsplash</string>
     <string name="venue">Venue:</string>
+    <string name="shows_the_next_event">Shows the next event in the list</string>
+    <string name="next_event_starts_description">Shows the date the the next event starts</string>
 
 </resources>

@@ -19,25 +19,16 @@ import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
  */
 public class PoinzWidgetProvider extends AppWidgetProvider {
 
-    private PoinzWidgetService poinzWidgetService;
-
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 EventDbModel eventDbModel,
                                 int appWidgetId) {
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.poinz_widget_provider);
 
-        Intent i = new Intent(context, PoinzDetailsActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
-
         views.setTextViewText(R.id.appwidget_text, eventDbModel.getTitle());
-        views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
 
         views.setTextViewText(R.id.appwidget_date, eventDbModel.getStartTime());
 
-        // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
