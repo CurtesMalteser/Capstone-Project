@@ -2,68 +2,17 @@
     <string name="app_name">PingPoinz</string>
     <string name="poinz">Poinz</string>
     <string name="places">Places</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_poinz">Hello blank Poinz</string>
-    <string name="hello_blank_places">Hello blank Places</string>
-
-
-    <!-- Buttons strings -->
-    <string name="add_geofences">Add geofences</string>
-    <string name="remove_geofences">Remove geofences</string>
-
-    <string name="geofences_added">Geofences added</string>
-    <string name="geofences_removed">Geofences removed</string>
-
-    <!-- Error strings -->
-    <string name="geofence_not_available">Geofence service is not available now</string>
-    <string name="geofence_too_many_geofences">Your app has registered too many geofences</string>
-    <string name="geofence_too_many_pending_intents">
-        You have provided too many PendingIntents to the addGeofences() call
-    </string>
-    <string name="unknown_geofence_error">
-        Unknown error: the Geofence service is not available now
-    </string>
-    <string name="geofence_transition_invalid_type">
-        Geofence transition error: invalid transition type %1$d
-    </string>
-
-    <!-- Transition type strings -->
-    <string name="geofence_transition_entered">Entered</string>
-    <string name="geofence_transition_exited">Exited</string>
-    <string name="unknown_geofence_transition">Unknown Transition</string>
-
-    <string name="geofence_transition_notification_text">
-        Click notification to return to app
-    </string>
-
-    <string name="insufficient_permissions">Insufficient permissions.</string>
-    <string name="permission_rationale">Location permission is needed for core functionality</string>
-    <string name="permission_denied_explanation">Permission was denied, but is needed for core
-        functionality.</string>
-    <string name="settings">Settings</string>
-    <string name="pick_place">Pick a place</string>
-    <string name="default_info_title">Marker Default Title</string>
-    <string name="default_info_snippet">Marker Default Snippet</string>
-
-
     <string name="free">Free</string>
     <string name="inexpensive">Inexpensive</string>
     <string name="moderate">Moderate</string>
     <string name="expensive">Expensive</string>
     <string name="very_expensive">Very Expensive</string>
     <string name="n_a">N/A</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="string_category">Category</string>
     <string name="string_start">Start:</string>
     <string name="string_end">End:</string>
     <string name="string_extra">event_as_extra</string>
     <string name="string_extra_place">place_as_extra</string>
     <string name="logo_powered_by_google">Logo powered by Google</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="price_level">Price Level:</string>
     <string name="rating">Rating:</string>
     <string name="address">Address:</string>
@@ -72,7 +21,8 @@
     <string name="photo_by_unsplash">Photo by Unsplash</string>
     <string name="venue">Venue:</string>
     <string name="shows_the_next_event">Shows the next event in the list</string>
-    <string name="next_event_starts_description">Shows the date the the next event starts</string>
+    <string name="next_event_starts_description">Shows the date the next event starts</string>
     <string name="no_picture">No Picture</string>
+    <string name="powered_by_google">Powered by Google logo</string>
 
 </resources>

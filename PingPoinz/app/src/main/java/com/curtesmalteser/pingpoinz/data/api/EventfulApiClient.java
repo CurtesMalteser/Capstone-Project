@@ -1,6 +1,5 @@
 package com.curtesmalteser.pingpoinz.data.api;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
@@ -15,7 +14,7 @@ public class EventfulApiClient {
 
     private static final String BASE_URL = "http://api.eventful.com/json/";
 
-    private static GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(
+    private final static GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(
             new GsonBuilder().registerTypeAdapterFactory(GsonAdapterFactory.create())
                     .create());
 

@@ -1,19 +1,14 @@
 package com.curtesmalteser.pingpoinz.activity.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.data.api.Event;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -25,9 +20,7 @@ import butterknife.ButterKnife;
  */
 public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesViewHolder> {
 
-    // TODO: 22/07/2018 Is Context needed?
-    private Context mContext;
-    private ArrayList<Event> mEvents;
+    private final ArrayList<Event> mEvents;
     final private ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
@@ -36,9 +29,8 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
     }
 
     //public PoinzPlacesAdapter(Context context, ArrayList<ComposedPlacesModel> moviesModelArrayList,
-    public PoinzAdapter(Context context, ArrayList<Event> events,
+    public PoinzAdapter(ArrayList<Event> events,
                         ListItemClickListener listener) {
-        this.mContext = context;
         this.mEvents = events;
         this.mOnClickListener = listener;
     }
@@ -77,7 +69,7 @@ public class PoinzAdapter extends RecyclerView.Adapter<PoinzAdapter.PoinzPlacesV
         @BindView(R.id.tvEnd)
         TextView tvEnd;
 
-        public PoinzPlacesViewHolder(View itemView) {
+        private PoinzPlacesViewHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);

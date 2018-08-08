@@ -15,53 +15,53 @@ public class EventDbModel {
     public static final String TABLE_NAME = "events_table";
 
     // Set the name of ID column
-    public static final String COLUMN_ID = BaseColumns._ID;
+    private static final String COLUMN_ID = BaseColumns._ID;
 
     @PrimaryKey(autoGenerate = true) //By default is false. I left it to make the code clear.
     @ColumnInfo(index = true, name = COLUMN_ID)
-    int id;
+    private int id;
 
     @ColumnInfo(name = "region_abbr")
-    private String regionAbbr;
+    private final String regionAbbr;
 
     @ColumnInfo(name = "postal_code")
-    private String postalCode;
+    private final String postalCode;
 
     @ColumnInfo(name = "latitude")
-    private Float latitude;
+    private final Float latitude;
 
     @ColumnInfo(name = "longitude")
-    private Float longitude;
+    private final Float longitude;
 
     @ColumnInfo(name = "event_id")
-    private String eventId;
+    private final String eventId;
 
     @ColumnInfo(name = "city_name")
-    private String cityName;
+    private final String cityName;
 
     @ColumnInfo(name = "country_name")
-    private String countryName;
+    private final String countryName;
 
     @ColumnInfo(name = "country_abbr")
-    private String countryAbbr;
+    private final String countryAbbr;
 
     @ColumnInfo(name = "region_name")
-    private String regionName;
+    private final String regionName;
 
     @ColumnInfo(name = "start_time")
-    private String startTime;
+    private final String startTime;
 
     @ColumnInfo(name = "venue_display")
-    private Boolean venueDisplay;
+    private final Boolean venueDisplay;
 
     @ColumnInfo(name = "title")
-    private String title;
+    private final String title;
 
     @ColumnInfo(name = "stop_time")
-    private String stopTime;
+    private final String stopTime;
 
     @ColumnInfo(name = "venue_name")
-    private String venueName;
+    private final String venueName;
 
     @Ignore
     public EventDbModel(String regionAbbr, String postalCode,
@@ -105,10 +105,6 @@ public class EventDbModel {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getRegionAbbr() {
@@ -157,10 +153,6 @@ public class EventDbModel {
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getStopTime() {

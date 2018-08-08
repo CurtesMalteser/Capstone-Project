@@ -15,7 +15,7 @@ import com.curtesmalteser.pingpoinz.activity.fragment.PoinzFragment;
  */
 public class MapsFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private Context mContext;
+    private final Context mContext;
 
     public MapsFragmentPagerAdapter(Context context, FragmentManager fm) {
         super(fm);

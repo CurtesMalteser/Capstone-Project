@@ -8,10 +8,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieDrawable;
 import com.curtesmalteser.pingpoinz.BuildConfig;
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.data.api.Event;
@@ -33,28 +30,33 @@ import timber.log.Timber;
 
 public class PoinzDetailsActivity extends AppCompatActivity {
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.poinzPoster)
     AppCompatImageView poinzPoster;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvTitle)
     AppCompatTextView tvTitle;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvDescription)
     AppCompatTextView tvDescription;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvVenueName)
     AppCompatTextView tvVenueName;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvCity)
     AppCompatTextView tvCity;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvStart)
     AppCompatTextView tvStart;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvEnd)
     AppCompatTextView tvEnd;
-
-    private Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class PoinzDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         if (getIntent().hasExtra(getResources().getString(R.string.string_extra))) {
-            event = getIntent().getParcelableExtra(getResources().getString(R.string.string_extra));
+            Event event = getIntent().getParcelableExtra(getResources().getString(R.string.string_extra));
             makePicturesQuery(event.venueName());
             tvTitle.setText(event.title());
             String description = event.description() != null ? event.description() : "N/A";

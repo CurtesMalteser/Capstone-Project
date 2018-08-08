@@ -9,6 +9,7 @@ import timber.log.Timber;
 /**
  * Created by António "Curtes Malteser" Bastião on 28/07/2018.
  */
+@SuppressWarnings("WeakerAccess")
 public class App extends Application {
 
     @Override

@@ -1,10 +1,8 @@
 package com.curtesmalteser.pingpoinz.widget;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -14,12 +12,10 @@ import com.firebase.jobdispatcher.Trigger;
 
 import java.util.concurrent.TimeUnit;
 
-import timber.log.Timber;
-
 /**
  * Created by António "Curtes Malteser" Bastião on 05/08/2018.
  */
-public class PoinzWidgetSync {
+class PoinzWidgetSync {
 
     private static final int SYNC_INTERVAL_HOURS = 3;
 

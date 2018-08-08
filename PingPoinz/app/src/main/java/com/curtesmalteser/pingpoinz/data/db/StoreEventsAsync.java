@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.curtesmalteser.pingpoinz.data.api.Event;
-import com.curtesmalteser.pingpoinz.data.api.Events;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +13,14 @@ import java.util.List;
  */
 public class StoreEventsAsync extends AsyncTask<Object, Void, Void> {
 
-    private PoinzDatabase mDb;
-    private PoinzDao mPoinzDao;
-    private Context context;
-
     @Override
     protected Void doInBackground(Object... params) {
-        context = (Context) params[0];
-        // TODO: 04/08/2018 check if LiveData works with observing the class Events that has a List
-        // and check if makes sense keep autovalue for these classes
+        Context context = (Context) params[0];
+        @SuppressWarnings("unchecked")
         List<Event> events = (List<Event>) params[1];
         ArrayList<EventDbModel> mEventDbModel = new ArrayList<>();
-        mDb = PoinzDatabase.getDatabase(context);
-        mPoinzDao = mDb.poinzDao();
+        PoinzDatabase mDb = PoinzDatabase.getDatabase(context);
+        PoinzDao mPoinzDao = mDb.poinzDao();
 
         mPoinzDao.deleteEventsTable();
 

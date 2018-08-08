@@ -3,7 +3,6 @@ package com.curtesmalteser.pingpoinz.data.utils;
 import android.widget.ImageView;
 
 import com.curtesmalteser.pingpoinz.R;
-import com.curtesmalteser.pingpoinz.data.api.Event;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;

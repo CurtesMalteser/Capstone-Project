@@ -22,18 +22,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-import static android.view.View.GONE;
-
 /**
  * Created by António "Curtes Malteser" Bastião on 03/08/2018.
  */
 public class AppViewModel extends ViewModel {
 
-    private MutableLiveData<Boolean> mIsConnected = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> mIsConnected = new MutableLiveData<>();
     private MutableLiveData<List<Event>> eventsList;
-    private MutableLiveData<List<PlacesModel>> placesList = new MutableLiveData<>();
-    private MutableLiveData<PlacesModel> placeModel = new MutableLiveData<>();
-    private MutableLiveData<PlacesPhotosModel> photosModelLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<PlacesModel>> placesList = new MutableLiveData<>();
+    private final MutableLiveData<PlacesModel> placeModel = new MutableLiveData<>();
+    private final MutableLiveData<PlacesPhotosModel> photosModelLiveData = new MutableLiveData<>();
 
 
     public void setIsConnected(boolean isConnected) {
@@ -92,9 +90,12 @@ public class AppViewModel extends ViewModel {
         call.enqueue(new Callback<EventfulEventsModel>() {
             @Override
             public void onResponse(@NonNull Call<EventfulEventsModel> call, @NonNull Response<EventfulEventsModel> response) {
-                if (response.body().events().eventsList() != null) {
-                    eventsList.postValue(response.body().events().eventsList());
-                }
+
+               if (response.body() != null) {
+                   if (response.body().events().eventsList() != null) {
+                       eventsList.postValue(response.body().events().eventsList());
+                   }
+               }
             }
 
             @Override

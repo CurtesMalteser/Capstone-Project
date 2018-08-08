@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by António "Curtes Malteser" Bastião on 25/07/2018.
  */
+@SuppressWarnings("unused")
 @AutoValue
 public abstract class ComposedPlacesModel {
 
@@ -17,6 +18,7 @@ public abstract class ComposedPlacesModel {
         return new AutoValue_ComposedPlacesModel.Builder();
     }
 
+    @SuppressWarnings("unused")
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Builder setPlaceId(String placeId);

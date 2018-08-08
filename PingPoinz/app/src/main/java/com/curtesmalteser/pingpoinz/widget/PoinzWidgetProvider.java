@@ -1,15 +1,12 @@
 package com.curtesmalteser.pingpoinz.widget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.curtesmalteser.pingpoinz.R;
-import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
 import com.curtesmalteser.pingpoinz.data.db.EventDbModel;
 import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
 import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
@@ -19,7 +16,7 @@ import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
  */
 public class PoinzWidgetProvider extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 EventDbModel eventDbModel,
                                 int appWidgetId) {
 

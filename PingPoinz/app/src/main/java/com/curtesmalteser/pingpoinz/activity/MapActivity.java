@@ -8,7 +8,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -174,26 +173,6 @@ public class MapActivity extends AppCompatActivity
         }
         updateLocationUI();
     }
-
-
-    // TODO: 07/08/2018 Code to add a marker
-/*
-            // Add a default marker, because the user hasn't selected a place.
-            mMap.addMarker(new MarkerOptions()
-                    .title(getString(R.string.default_info_title))
-                    .position(mDefaultLocation)
-                    .snippet(getString(R.string.default_info_snippet)));
-*/
-
-
-    // TODO: 07/08/2018 Code for dialog
-
-    // Display the dialog.
-       /* AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle(R.string.pick_place)
-                .setItems(mLikelyPlaceNames, listener)
-                .show();
-    */
 
     private void updateLocationUI() {
         if (mMap == null) {

@@ -6,6 +6,7 @@ import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
 /**
  * Created by António "Curtes Malteser" Bastião on 29/07/2018.
  */
+@SuppressWarnings("WeakerAccess")
 @GsonTypeAdapterFactory
 public abstract class GsonAdapterFactory implements TypeAdapterFactory {
     // Static factory method to access the package

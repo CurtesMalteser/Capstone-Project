@@ -17,7 +17,6 @@ import com.curtesmalteser.pingpoinz.activity.AppViewModel;
 import com.curtesmalteser.pingpoinz.activity.PoinzDetailsActivity;
 import com.curtesmalteser.pingpoinz.activity.adapter.PoinzAdapter;
 import com.curtesmalteser.pingpoinz.data.api.Event;
-import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
 import com.curtesmalteser.pingpoinz.data.db.StoreEventsAsync;
 
 import java.util.ArrayList;
@@ -37,13 +36,13 @@ public class PoinzFragment extends Fragment
 
     private AppViewModel mViewModel;
 
-    private ArrayList<Event> eventsModel = new ArrayList<>();
+    private final ArrayList<Event> eventsModel = new ArrayList<>();
 
-    private PoinzDatabase mDb;
-
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.animationLoader)
     LottieAnimationView animationLoader;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.rvPoinzPlaces)
     RecyclerView mRvPoinzPlaces;
 
@@ -54,10 +53,8 @@ public class PoinzFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getActivity() != null)
         mViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
-
-        // Instantiate Room DB
-        mDb = PoinzDatabase.getDatabase(getActivity());
     }
 
     @Override
@@ -69,8 +66,7 @@ public class PoinzFragment extends Fragment
 
         animationLoader.setVisibility(View.VISIBLE);
 
-        // TODO: 22/07/2018 Is Context needed?
-        mPoinzAdapter = new PoinzAdapter(getContext(), eventsModel, this);
+        mPoinzAdapter = new PoinzAdapter( eventsModel, this);
         mRvPoinzPlaces.setAdapter(mPoinzAdapter);
         mRvPoinzPlaces.setHasFixedSize(true);
         mRvPoinzPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

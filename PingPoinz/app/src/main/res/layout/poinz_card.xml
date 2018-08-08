@@ -8,15 +8,15 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zeroDp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/eightDp"
+        android:layout_marginLeft="@dimen/eightDp"
+        android:layout_marginRight="@dimen/eightDp"
+        android:layout_marginStart="@dimen/eightDp"
+        android:layout_marginTop="@dimen/eightDp"
         android:lines="1"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,8 @@
         android:id="@+id/tvCityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="@dimen/eightDp"
+        android:layout_marginStart="@dimen/eightDp"
         android:text="@string/city"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvStart"
@@ -37,23 +37,21 @@
         app:layout_constraintStart_toEndOf="@+id/tvStart"
         app:layout_constraintTop_toBottomOf="@+id/tvStart" />
 
-
     <TextView
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Mars is a planet"
         app:layout_constraintBottom_toTopOf="@+id/tvEnd"
         app:layout_constraintEnd_toStartOf="@+id/tvCityLabel"
         app:layout_constraintStart_toEndOf="@+id/tvCityLabel"
-        app:layout_constraintTop_toBottomOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="parent"
+        tools:text="Mars is a planet" />
 
     <TextView
         android:id="@+id/tvStartLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/eightDp"
         android:text="@string/string_start"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tvTitle"
@@ -62,9 +60,9 @@
     <TextView
         android:id="@+id/tvStart"
         android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="@dimen/eightDp"
+        android:layout_marginLeft="@dimen/eightDp"
+        android:layout_marginStart="@dimen/eightDp"
         app:layout_constraintBottom_toTopOf="@+id/tvStartLabel"
         app:layout_constraintStart_toEndOf="@+id/tvStartLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvStartLabel"
@@ -74,10 +72,10 @@
         android:id="@+id/tvAddressLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/eightDp"
+        android:layout_marginTop="@dimen/eightDp"
         android:text="@string/string_end"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvStartLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvStartLabel" />

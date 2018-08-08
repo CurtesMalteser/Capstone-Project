@@ -1,14 +1,11 @@
 package com.curtesmalteser.pingpoinz.activity.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
@@ -24,19 +21,15 @@ import butterknife.ButterKnife;
 public class PlacesAdapter
         extends RecyclerView.Adapter<PlacesAdapter.PoinzPlacesViewHolder> {
 
-    // TODO: 22/07/2018 Is Context needed?
-    private Context mContext;
-    //private ArrayList<ComposedPlacesModel> mPlacesList;
-    private ArrayList<PlacesModel> mPlacesList;
+    private final ArrayList<PlacesModel> mPlacesList;
     final private ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
         void onListItemClick(PlacesModel placesModel);
     }
 
-    public PlacesAdapter(Context context, ArrayList<PlacesModel> placesModelArrayList,
+    public PlacesAdapter(ArrayList<PlacesModel> placesModelArrayList,
                          ListItemClickListener listener) {
-        this.mContext = context;
         this.mPlacesList = placesModelArrayList;
         this.mOnClickListener = listener;
     }

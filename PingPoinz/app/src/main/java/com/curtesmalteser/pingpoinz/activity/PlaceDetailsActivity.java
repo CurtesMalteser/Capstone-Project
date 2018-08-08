@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieDrawable;
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesPhotosModel;
@@ -26,7 +25,6 @@ import com.google.android.gms.tasks.Task;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class PlaceDetailsActivity extends AppCompatActivity {
 
@@ -34,25 +32,31 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     private PlacesModel mPlacesModel;
     private GeoDataClient mGeoDataClient;
 
-
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.animationLoader)
     LottieAnimationView animationLoader;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.poinzPoster)
     AppCompatImageView poinzPoster;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvAttributions)
     AppCompatTextView tvAttributions;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvTitle)
     AppCompatTextView tvTitle;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvAddress)
     AppCompatTextView tvAddress;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvRating)
     AppCompatTextView tvRating;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tvPriceLevel)
     AppCompatTextView tvPriceLevel;
 

@@ -19,7 +19,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.adapter.MapsFragmentPagerAdapter;
-import com.curtesmalteser.pingpoinz.data.db.StoreEventsAsync;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
 import com.curtesmalteser.pingpoinz.data.maps.PriceLevel;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -67,17 +66,19 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private Bundle mFirebaseBundle;
 
-    private List<PlacesModel> mPlacesArrayList = new ArrayList();
+    @SuppressWarnings("unchecked")
+    private final List<PlacesModel> mPlacesArrayList = new ArrayList();
     private AppViewModel mViewModel;
 
-    private ConnectivityManager mConnectivityManager;
-
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.viewPager)
     ViewPager viewPager;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.btnOpenMapsActivity)
     FloatingActionButton btnOpenMapsActivity;
 
@@ -92,12 +93,13 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mConnectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (mConnectivityManager != null) {
 
             if (mConnectivityManager.getActiveNetworkInfo() != null
                     && mConnectivityManager.getActiveNetworkInfo().isAvailable()
                     && mConnectivityManager.getActiveNetworkInfo().isConnected()) {
+                mViewModel.setIsConnected(true);
             } else {
                 mViewModel.setIsConnected(false);
             }
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         btnOpenMapsActivity.setOnClickListener(l -> {
             Intent i = new Intent(this, MapActivity.class);
             startActivity(i);
-            firebaseAnalyticeLog(mFirebaseBundle, FirebaseAnalytics.Param.ITEM_NAME, "MapActivity");
+            firebaseAnalyticsLog(mFirebaseBundle, FirebaseAnalytics.Param.ITEM_NAME, "MapActivity");
         });
 
         MapsFragmentPagerAdapter adapter =
@@ -155,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 for (Location location : locationResult.getLocations()) {
-                    firebaseAnalyticeLog(mFirebaseBundle, FirebaseAnalytics.Param.LOCATION, location.toString());
+                    firebaseAnalyticsLog(mFirebaseBundle, FirebaseAnalytics.Param.LOCATION, location.toString());
                 }
             }
 
@@ -164,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         showCurrentPlace();
     }
 
-    private void firebaseAnalyticeLog(Bundle bundle, String param, String event) {
+    private void firebaseAnalyticsLog(Bundle bundle, String param, String event) {
         mFirebaseBundle.putString(param, event);
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
@@ -195,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
     }
 
-    protected void createLocationRequest() {
+    private void createLocationRequest() {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
