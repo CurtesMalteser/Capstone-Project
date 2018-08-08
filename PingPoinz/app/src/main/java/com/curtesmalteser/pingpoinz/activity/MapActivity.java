@@ -92,12 +92,6 @@ public class MapActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.current_place_menu, menu);
-        return true;
-    }
-
-    @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
