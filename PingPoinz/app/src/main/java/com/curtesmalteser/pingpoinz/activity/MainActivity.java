@@ -2,10 +2,12 @@ package com.curtesmalteser.pingpoinz.activity;
 
 import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -14,10 +16,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.activity.adapter.MapsFragmentPagerAdapter;
+import com.curtesmalteser.pingpoinz.data.db.StoreEventsAsync;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
 import com.curtesmalteser.pingpoinz.data.maps.PriceLevel;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -29,13 +31,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -48,11 +47,6 @@ import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
-    // todo -> make the only portrait
-    // TODO: 02/08/2018 -> make get the position from the activity and pass it into the fragments 
-
-    // Variables to access position since, the Google Maps API requires ActivityContext
-    // Even if this will generate a horrible overcrowded activity
     private FusedLocationProviderClient mFusedLocationClient;
 
     private LocationCallback mLocationCallback;
@@ -63,16 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean mRequestingLocationUpdates = false;
 
-    // A default location (Sydney, Australia) and default zoom to use when location permission is
-    // not granted.
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
-    // The geographical location where the device is currently located. That is, the last-known
-    // location retrieved by the Fused Location Provider.
-    private Location mKnownLocation;
-    
-    // The entry points to the Places API.
     private PlaceDetectionClient mPlaceDetectionClient;
 
     private PlacesModel placesModel;
@@ -80,12 +67,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private Bundle mFirebaseBundle;
 
-
-    // End of variables to access position since, the Google Maps API requires ActivityContext
-
     private List<PlacesModel> mPlacesArrayList = new ArrayList();
     private AppViewModel mViewModel;
 
+    private ConnectivityManager mConnectivityManager;
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -107,10 +92,19 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        mConnectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (mConnectivityManager != null) {
+
+            if (mConnectivityManager.getActiveNetworkInfo() != null
+                    && mConnectivityManager.getActiveNetworkInfo().isAvailable()
+                    && mConnectivityManager.getActiveNetworkInfo().isConnected()) {
+            } else {
+                mViewModel.setIsConnected(false);
+            }
+        }
+
+
         mFirebaseBundle = new Bundle();
-
-
-
 
         btnOpenMapsActivity.bringToFront();
         btnOpenMapsActivity.setOnClickListener(l -> {
@@ -119,24 +113,16 @@ public class MainActivity extends AppCompatActivity {
             firebaseAnalyticeLog(mFirebaseBundle, FirebaseAnalytics.Param.ITEM_NAME, "MapActivity");
         });
 
-
         MapsFragmentPagerAdapter adapter =
                 new MapsFragmentPagerAdapter(this, getSupportFragmentManager());
 
         viewPager.setAdapter(adapter);
-
         tabLayout.setupWithViewPager(viewPager);
 
-        // ************* Maps Utils *****************************//
-
-        // Prompt the user for permission.
         getLocationPermission();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        // Construct a PlaceDetectionClient.
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this);
-
 
         createLocationRequest();
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -145,33 +131,19 @@ public class MainActivity extends AppCompatActivity {
         SettingsClient client = LocationServices.getSettingsClient(this);
         Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
 
-        task.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
-            @Override
-            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                // All location settings are satisfied. The client can initialize
-                // location requests here.
-                // ...
-
-                mRequestingLocationUpdates = true;
-                startLocationUpdates();
-            }
+        task.addOnSuccessListener(this, locationSettingsResponse -> {
+            mRequestingLocationUpdates = true;
+            startLocationUpdates();
         });
 
-        task.addOnFailureListener(this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                if (e instanceof ResolvableApiException) {
-                    // Location settings are not satisfied, but this can be fixed
-                    // by showing the user a dialog.
-                    try {
-                        // Show the dialog by calling startResolutionForResult(),
-                        // and check the result in onActivityResult().
-                        ResolvableApiException resolvable = (ResolvableApiException) e;
-                        resolvable.startResolutionForResult(MainActivity.this,
-                                REQUEST_CHECK_SETTINGS);
-                    } catch (IntentSender.SendIntentException sendEx) {
-                        // Ignore the error.
-                    }
+        task.addOnFailureListener(this, e -> {
+            if (e instanceof ResolvableApiException) {
+                try {
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(MainActivity.this,
+                            REQUEST_CHECK_SETTINGS);
+                } catch (IntentSender.SendIntentException sendEx) {
+                    // Ignore the error.
                 }
             }
         });
@@ -182,29 +154,14 @@ public class MainActivity extends AppCompatActivity {
                 if (locationResult == null) {
                     return;
                 }
-
                 for (Location location : locationResult.getLocations()) {
                     firebaseAnalyticeLog(mFirebaseBundle, FirebaseAnalytics.Param.LOCATION, location.toString());
-
-                    // TODO: 04/08/2018 -> annotation one.a) 
-                    mKnownLocation = location;
-
-                    // TODO: 04/08/2018 -> LiveData to update location and showCurrentPlace(); annotation Two
                 }
             }
 
         };
 
-
-        // TODO: 04/08/2018 -> check where show places fits better
-        /* annotation Two -> Probably on onLocationResult(), but a method to update the places only when the distance
-        *  to the previous point is > than X
-        */
-
         showCurrentPlace();
-
-        // ************* EndMaps Utils *****************************//
-
     }
 
     private void firebaseAnalyticeLog(Bundle bundle, String param, String event) {
@@ -251,16 +208,7 @@ public class MainActivity extends AppCompatActivity {
         return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
-
-    /**
-     * Prompts the user for permission to use the device location.
-     */
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -272,9 +220,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Handles the result of the request for location permissions.
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
@@ -282,41 +227,23 @@ public class MainActivity extends AppCompatActivity {
         mLocationPermissionGranted = false;
         switch (requestCode) {
             case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
                 }
             }
         }
-
     }
 
     private void showCurrentPlace() {
 
         if (mLocationPermissionGranted) {
-
-
-            // Get the likely places - that is, the businesses and other points of interest that
-            // are the best match for the device's current location.
             @SuppressWarnings("MissingPermission") final Task<PlaceLikelihoodBufferResponse> placeResult =
                     mPlaceDetectionClient.getCurrentPlace(null);
             placeResult.addOnCompleteListener
                     (task -> {
                         if (task.isSuccessful() && task.getResult() != null) {
                             PlaceLikelihoodBufferResponse likelyPlaces = task.getResult();
-
-                            // Set the count, handling cases where less than 5 entries are returned.
-
-                            // TODO: 22/07/2018 check if number of places should be limited
-                            // TODO: 22/07/2018 based of User Preferences?
-                            //int count;
-                           /* if (likelyPlaces.getCount() < M_MAX_ENTRIES) {
-                                count = likelyPlaces.getCount();
-                            } else {
-                                count = M_MAX_ENTRIES;
-                            }*/
-
                             for (PlaceLikelihood placeLikelihood : likelyPlaces) {
 
                                 int string = PriceLevel.getPriceLevel(placeLikelihood.getPlace().getPriceLevel());
@@ -341,21 +268,13 @@ public class MainActivity extends AppCompatActivity {
                                 mViewModel.setPlaces(mPlacesArrayList);
 
                             }
-
-                            // Release the place likelihood buffer, to avoid memory leaks.
                             likelyPlaces.release();
-
-                        } else {
-                            Timber.e(task.getException().toString());
+                            Timber.e(task.getException());
                         }
                     });
         } else {
-
             getLocationPermission();
-
-            // The user has not granted permission.
             Timber.i("The user did not grant location permission.");
-
         }
     }
 

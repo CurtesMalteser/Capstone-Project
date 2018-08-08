@@ -75,6 +75,12 @@ public class PoinzFragment extends Fragment
         mRvPoinzPlaces.setHasFixedSize(true);
         mRvPoinzPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
+        mViewModel.getIsConnected().observe(this, aBoolean -> {
+            if (aBoolean != null && !aBoolean) {
+                animationLoader.setAnimation(R.raw.no_connection);
+            }
+        });
+
         mViewModel.getEvents().observe(this, events -> {
             eventsModel.addAll(events);
             mPoinzAdapter.notifyDataSetChanged();

@@ -29,14 +29,20 @@ import static android.view.View.GONE;
  */
 public class AppViewModel extends ViewModel {
 
-    // TODO: 29/07/2018 -> check for connectivity in on reactive way???
-
+    private MutableLiveData<Boolean> mIsConnected = new MutableLiveData<>();
     private MutableLiveData<List<Event>> eventsList;
     private MutableLiveData<List<PlacesModel>> placesList = new MutableLiveData<>();
     private MutableLiveData<PlacesModel> placeModel = new MutableLiveData<>();
     private MutableLiveData<PlacesPhotosModel> photosModelLiveData = new MutableLiveData<>();
 
 
+    public void setIsConnected(boolean isConnected) {
+        this.mIsConnected.postValue(isConnected);
+    }
+
+    public LiveData<Boolean> getIsConnected() {
+        return mIsConnected;
+    }
 
     public void setPlacesPhotosModel(PlacesPhotosModel places) {
         photosModelLiveData.postValue(places);
@@ -75,11 +81,6 @@ public class AppViewModel extends ViewModel {
         EventfulApiInterface apiInterface = EventfulApiClient.getClient().create(EventfulApiInterface.class);
         Call<EventfulEventsModel> call;
 
-        // TODO: 29/07/2018 -> check for connectivity
-       /* if (cm.getActiveNetworkInfo() != null
-                && cm.getActiveNetworkInfo().isAvailable()
-                && cm.getActiveNetworkInfo().isConnected()) {*/
-
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("date", "Future");
         queryParams.put("location", "Valais");
@@ -94,10 +95,6 @@ public class AppViewModel extends ViewModel {
                 if (response.body().events().eventsList() != null) {
                     eventsList.postValue(response.body().events().eventsList());
                 }
-                for (Event event : response.body().events().eventsList()) {
-                    if (event.image() != null)
-                        Timber.d("foo this -> " + event.image().url() + event.title());
-                }
             }
 
             @Override
@@ -105,8 +102,5 @@ public class AppViewModel extends ViewModel {
                 Timber.e(t);
             }
         });
-        // TODO: 29/07/2018 -> else of check for connectivity
-       /* } else
-            Toast.makeText(getContext(), R.string.check_internet_connection, Toast.LENGTH_SHORT).show();*/
     }
 }

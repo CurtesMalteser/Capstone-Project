@@ -8,7 +8,10 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.curtesmalteser.pingpoinz.BuildConfig;
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.data.api.Event;
@@ -57,11 +60,11 @@ public class PoinzDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poinz_details);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.bind(this);
-
-
 
         if (getIntent().hasExtra(getResources().getString(R.string.string_extra))) {
             event = getIntent().getParcelableExtra(getResources().getString(R.string.string_extra));
@@ -83,10 +86,6 @@ public class PoinzDetailsActivity extends AppCompatActivity {
         UnsplashInterface apiInterface = UnsplashClient.getClient().create(UnsplashInterface.class);
         Call<SearchPhotoResult> call;
 
-       /* if (cm.getActiveNetworkInfo() != null
-                && cm.getActiveNetworkInfo().isAvailable()
-                && cm.getActiveNetworkInfo().isConnected()) {*/
-
         Random r = new Random();
         int i = r.nextInt(9);
 
@@ -103,7 +102,6 @@ public class PoinzDetailsActivity extends AppCompatActivity {
                 if (response.body() != null && response.body().results().size() > 0) {
                     PicassoHelper.getPhoto(poinzPoster, response.body().results().get(i).urls().regular());
                 }
-
             }
 
             @Override
@@ -111,8 +109,6 @@ public class PoinzDetailsActivity extends AppCompatActivity {
                 Timber.e(t);
             }
         });
-       /* } else
-            Toast.makeText(getContext(), R.string.check_internet_connection, Toast.LENGTH_SHORT).show();*/
     }
 
     @Override

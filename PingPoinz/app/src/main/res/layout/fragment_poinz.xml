@@ -8,15 +8,16 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationLoader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="16dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/truck_running"
-        android:visibility="gone"/>
+        app:lottie_rawRes="@raw/truck_running" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvPoinzPlaces"

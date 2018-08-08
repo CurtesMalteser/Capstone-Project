@@ -73,5 +73,6 @@
     <string name="venue">Venue:</string>
     <string name="shows_the_next_event">Shows the next event in the list</string>
     <string name="next_event_starts_description">Shows the date the the next event starts</string>
+    <string name="no_picture">No Picture</string>
 
 </resources>

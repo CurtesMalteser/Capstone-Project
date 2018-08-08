@@ -8,13 +8,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.curtesmalteser.pingpoinz.R;
+import com.curtesmalteser.pingpoinz.data.db.EventDbModel;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDao;
+import com.curtesmalteser.pingpoinz.data.db.PoinzDatabase;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,9 +25,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
@@ -49,7 +51,9 @@ public class MapActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_map);
+        if (getSupportActionBar() != null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState != null) {
@@ -64,6 +68,19 @@ public class MapActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        PoinzDao dao = PoinzDatabase.getDatabase(this).poinzDao();
+        dao.getAllEvents().observeForever(eventDbModels -> {
+            if (eventDbModels != null) {
+                if (mMap != null) {
+                    for (EventDbModel event : eventDbModels) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(event.getLatitude(), event.getLongitude()))
+                                .title(event.getTitle())
+                                .snippet(event.getStartTime()));
+                    }
+                }
+            }
+        });
     }
 
     @Override

@@ -83,10 +83,13 @@ public class PlacesFragment extends Fragment
         View v = inflater.inflate(R.layout.fragment_places, container, false);
         ButterKnife.bind(this, v);
 
-        // TODO: 04/08/2018 -> scale the placeholder
-      //  animationLoader.setVisibility(View.VISIBLE);
+        animationLoader.setVisibility(View.VISIBLE);
+        mViewModel.getIsConnected().observe(this, aBoolean -> {
+            if (aBoolean != null && !aBoolean) {
+                animationLoader.setAnimation(R.raw.no_connection);
+            }
+        });
 
-        // TODO: 22/07/2018 Is Context needed?
         mPoinzPlacesAdapter = new PlacesAdapter(getContext(), mPlacesArrayList, this);
         mRvPoinzPlaces.setAdapter(mPoinzPlacesAdapter);
         mRvPoinzPlaces.setHasFixedSize(true);
@@ -94,6 +97,7 @@ public class PlacesFragment extends Fragment
         mViewModel.getPlaces().observe(this, placesModels -> {
             mPlacesArrayList.addAll(placesModels);
             mPoinzPlacesAdapter.notifyDataSetChanged();
+            animationLoader.setVisibility(GONE);
         });
 
         return v;

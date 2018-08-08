@@ -9,7 +9,10 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.curtesmalteser.pingpoinz.R;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesModel;
 import com.curtesmalteser.pingpoinz.data.maps.PlacesPhotosModel;
@@ -30,6 +33,10 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     private AppViewModel mViewModel;
     private PlacesModel mPlacesModel;
     private GeoDataClient mGeoDataClient;
+
+
+    @BindView(R.id.animationLoader)
+    LottieAnimationView animationLoader;
 
     @BindView(R.id.poinzPoster)
     AppCompatImageView poinzPoster;
@@ -56,6 +63,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
         setContentView(R.layout.activity_place_details);
+
+        if (getSupportActionBar() != null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.bind(this);
@@ -69,12 +78,14 @@ public class PlaceDetailsActivity extends AppCompatActivity {
 
         mViewModel.getPlaceModel().observe(this, placesModel -> {
             mPlacesModel = placesModel;
-            tvTitle.setText(mPlacesModel.placeName());
-            String rating = mPlacesModel.placeRating() != -1.0f ? String.valueOf(mPlacesModel.placeRating()) : "N/A";
-            tvRating.setText(rating);
-            tvPriceLevel.setText(mPlacesModel.placePriceLevel());
-            tvAddress.setText(mPlacesModel.placeAddress());
-            getPhotos(mPlacesModel.placeId());
+            if(mPlacesModel!= null) {
+                tvTitle.setText(mPlacesModel.placeName());
+                String rating = mPlacesModel.placeRating() != -1.0f ? String.valueOf(mPlacesModel.placeRating()) : "N/A";
+                tvRating.setText(rating);
+                tvPriceLevel.setText(mPlacesModel.placePriceLevel());
+                tvAddress.setText(mPlacesModel.placeAddress());
+                getPhotos(mPlacesModel.placeId());
+            }
         });
 
         mViewModel.getPlacesPhotosModel().observe(this, placesPhotosModel -> {
@@ -105,11 +116,13 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                                     .setPlacePhoto(bitmap)
                                     .setPlacePhotoAttributions(attribution.toString())
                                     .build()
+
                     );
+                    animationLoader.setVisibility(View.GONE);
                 });
             } else {
-                // TODO: 05/08/2018 -> and a placeholder on else statement
-                Timber.d("No images for the place with id %s", placeId);
+                    animationLoader.setAnimation(R.raw.a_mountain);
+                    tvAttributions.setText(R.string.no_picture);
             }
             photoMetadataBuffer.release();
         });
