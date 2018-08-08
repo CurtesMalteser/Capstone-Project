@@ -60,7 +60,7 @@
     <TextView
         android:id="@+id/tvStart"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/eightDp"
+        android:layout_height="@dimen/sixteenDp"
         android:layout_marginLeft="@dimen/eightDp"
         android:layout_marginStart="@dimen/eightDp"
         app:layout_constraintBottom_toTopOf="@+id/tvStartLabel"

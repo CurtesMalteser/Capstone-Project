@@ -71,7 +71,7 @@
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tvRating"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/eightDp"
+        android:layout_height="@dimen/sixteenDp"
         android:layout_marginEnd="@dimen/eightDp"
         android:layout_marginRight="@dimen/eightDp"
         app:layout_constraintBottom_toTopOf="@+id/tvRatingLabel"

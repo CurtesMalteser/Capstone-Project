@@ -23,7 +23,9 @@
         android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@android:color/white" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnOpenMapsActivity"

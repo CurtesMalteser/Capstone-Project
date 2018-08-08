@@ -21,7 +21,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/MAPS_KEY" />
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,10 +30,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MapActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activity.MainActivity"/>
         <activity android:name=".activity.PlaceDetailsActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activity.MainActivity"/>
         <activity android:name=".activity.PoinzDetailsActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activity.MainActivity"/>
 
         <receiver android:name=".widget.PoinzWidgetProvider">
